@@ -83,34 +83,34 @@ const press = ['Condé Nast Traveler', 'Travel + Leisure', 'Robb Report', 'Finan
 const journal = journalArticles.slice(0, 3);
 
 /* ──────────────────────────────────────────────────────────────
-   PARTNERS — Lodge & camp partner brands
-   Two rows scroll in opposite directions. When you drop logo
-   files into /public/logos/partners/, swap the spans for <Image>.
+   PARTNERS — Logos drop into /public/partners/.
+   Add a file there and a corresponding entry below.
    ────────────────────────────────────────────────────────────── */
-const partnersRowOne = [
-  'Singita',
-  'Wilderness',
-  'andBeyond',
-  'One&Only',
-  'Bisate Lodge',
-  'Mnemba Island',
-  'Asilia Africa',
-  'Sanctuary Retreats',
-  'Time + Tide',
-  'Roving Bushtops',
+type PartnerLogo = { name: string; src: string };
+
+const partnerLogos: PartnerLogo[] = [
+  { name: 'TripAdvisor', src: '/partners/tripadvisor-logo-icon-travel-website-free-vector.jpg' },
+  { name: 'Rwanda Tours & Travel Association', src: '/partners/rtta2.png' },
+  { name: 'RICTA', src: '/partners/ricta.png' },
+  { name: 'Chamber of Tourism', src: '/partners/cot.png' },
+  { name: 'Tourism Partner', src: '/partners/images.png' },
 ];
 
-const partnersRowTwo = [
-  'Angama Mara',
-  'Segera Retreat',
-  'Mombo Camp',
-  'Vumbura Plains',
-  'Jack’s Camp',
-  'Peponi’s',
-  'Mahali Mzuri',
-  'Sasaab',
-  'Cottar’s 1920s',
-  'Magashi',
+/* Split into two rows so each scrolls independently */
+const partnersRowOne: PartnerLogo[] = [
+  partnerLogos[0],
+  partnerLogos[1],
+  partnerLogos[2],
+  partnerLogos[3],
+  partnerLogos[4],
+];
+
+const partnersRowTwo: PartnerLogo[] = [
+  partnerLogos[4],
+  partnerLogos[3],
+  partnerLogos[2],
+  partnerLogos[1],
+  partnerLogos[0],
 ];
 
 /* ──────────────────────────────────────────────────────────────
@@ -765,31 +765,41 @@ export default function HomePage() {
           </motion.div>
         </div>
 
-        {/* Row 1 — left to right */}
+        {/* Row 1 — scrolls right-to-left */}
         <div className="marquee-row marquee-shell">
           <div className="marquee-track">
-            {[...partnersRowOne, ...partnersRowOne].map((p, i) => (
+            {[...partnersRowOne, ...partnersRowOne, ...partnersRowOne].map((p, i) => (
               <span
-                key={`r1-${p}-${i}`}
-                className="inline-flex items-center text-[clamp(1.4rem,2.4vw,2rem)] font-light tracking-tight text-neutral-400 transition hover:text-[#F58220]"
+                key={`r1-${p.name}-${i}`}
+                className="inline-flex h-16 items-center px-8 grayscale opacity-70 transition hover:grayscale-0 hover:opacity-100 lg:h-20 lg:px-10"
               >
-                {p}
-                <span aria-hidden="true" className="mx-12 inline-block h-1 w-1 rounded-full bg-neutral-300" />
+                <Image
+                  src={p.src}
+                  alt={p.name}
+                  width={240}
+                  height={120}
+                  className="h-full w-auto object-contain"
+                />
               </span>
             ))}
           </div>
         </div>
 
-        {/* Row 2 — right to left (reverse) */}
-        <div className="marquee-row marquee-shell mt-3">
+        {/* Row 2 — scrolls left-to-right (reverse) */}
+        <div className="marquee-row marquee-shell mt-4">
           <div className="marquee-track-reverse">
-            {[...partnersRowTwo, ...partnersRowTwo].map((p, i) => (
+            {[...partnersRowTwo, ...partnersRowTwo, ...partnersRowTwo].map((p, i) => (
               <span
-                key={`r2-${p}-${i}`}
-                className="inline-flex items-center text-[clamp(1.4rem,2.4vw,2rem)] font-light tracking-tight text-neutral-400 transition hover:text-[#F58220]"
+                key={`r2-${p.name}-${i}`}
+                className="inline-flex h-16 items-center px-8 grayscale opacity-70 transition hover:grayscale-0 hover:opacity-100 lg:h-20 lg:px-10"
               >
-                {p}
-                <span aria-hidden="true" className="mx-12 inline-block h-1 w-1 rounded-full bg-neutral-300" />
+                <Image
+                  src={p.src}
+                  alt={p.name}
+                  width={240}
+                  height={120}
+                  className="h-full w-auto object-contain"
+                />
               </span>
             ))}
           </div>

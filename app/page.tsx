@@ -83,6 +83,37 @@ const press = ['Condé Nast Traveler', 'Travel + Leisure', 'Robb Report', 'Finan
 const journal = journalArticles.slice(0, 3);
 
 /* ──────────────────────────────────────────────────────────────
+   PARTNERS — Lodge & camp partner brands
+   Two rows scroll in opposite directions. When you drop logo
+   files into /public/logos/partners/, swap the spans for <Image>.
+   ────────────────────────────────────────────────────────────── */
+const partnersRowOne = [
+  'Singita',
+  'Wilderness',
+  'andBeyond',
+  'One&Only',
+  'Bisate Lodge',
+  'Mnemba Island',
+  'Asilia Africa',
+  'Sanctuary Retreats',
+  'Time + Tide',
+  'Roving Bushtops',
+];
+
+const partnersRowTwo = [
+  'Angama Mara',
+  'Segera Retreat',
+  'Mombo Camp',
+  'Vumbura Plains',
+  'Jack’s Camp',
+  'Peponi’s',
+  'Mahali Mzuri',
+  'Sasaab',
+  'Cottar’s 1920s',
+  'Magashi',
+];
+
+/* ──────────────────────────────────────────────────────────────
    MOTION HELPERS
    ────────────────────────────────────────────────────────────── */
 const reveal = {
@@ -700,6 +731,68 @@ export default function HomePage() {
               </motion.li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════════
+          PARTNERS — Two-row marquee, opposite directions
+         ═════════════════════════════════════════════════════════ */}
+      <section className="border-y border-neutral-200/80 bg-neutral-50/60 py-20 lg:py-28">
+        <div className="mx-auto mb-12 max-w-[1280px] px-6 lg:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10% 0px' }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end"
+          >
+            <div className="flex items-start gap-5">
+              <span className="mt-3 inline-block h-px w-10 bg-[#F58220]" />
+              <div>
+                <p className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]">
+                  Lodge & camp partners
+                </p>
+                <h2 className="mt-3 text-balance text-[clamp(2rem,4.2vw,3.4rem)] leading-[1.04] tracking-[-0.03em] text-neutral-950">
+                  <span className="font-bold">The finest names</span>{' '}
+                  <span className="font-light">in African hospitality.</span>
+                </h2>
+              </div>
+            </div>
+            <p className="max-w-md text-base leading-8 text-neutral-600">
+              Twenty years of relationships with the lodges, camps, and houses that quietly raise
+              the standard across the continent.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Row 1 — left to right */}
+        <div className="marquee-row marquee-shell">
+          <div className="marquee-track">
+            {[...partnersRowOne, ...partnersRowOne].map((p, i) => (
+              <span
+                key={`r1-${p}-${i}`}
+                className="inline-flex items-center text-[clamp(1.4rem,2.4vw,2rem)] font-light tracking-tight text-neutral-400 transition hover:text-[#F58220]"
+              >
+                {p}
+                <span aria-hidden="true" className="mx-12 inline-block h-1 w-1 rounded-full bg-neutral-300" />
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 — right to left (reverse) */}
+        <div className="marquee-row marquee-shell mt-3">
+          <div className="marquee-track-reverse">
+            {[...partnersRowTwo, ...partnersRowTwo].map((p, i) => (
+              <span
+                key={`r2-${p}-${i}`}
+                className="inline-flex items-center text-[clamp(1.4rem,2.4vw,2rem)] font-light tracking-tight text-neutral-400 transition hover:text-[#F58220]"
+              >
+                {p}
+                <span aria-hidden="true" className="mx-12 inline-block h-1 w-1 rounded-full bg-neutral-300" />
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 

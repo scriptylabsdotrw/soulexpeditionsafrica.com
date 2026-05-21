@@ -107,6 +107,26 @@ video {
   animation: marquee 38s linear infinite;
 }
 
+.marquee-track-slow {
+  display: flex;
+  gap: 4rem;
+  width: max-content;
+  animation: marquee 55s linear infinite;
+}
+
+.marquee-track-reverse {
+  display: flex;
+  gap: 4rem;
+  width: max-content;
+  animation: marquee 48s linear infinite reverse;
+}
+
+.marquee-row:hover .marquee-track,
+.marquee-row:hover .marquee-track-slow,
+.marquee-row:hover .marquee-track-reverse {
+  animation-play-state: paused;
+}
+
 .marquee-item {
   white-space: nowrap;
   color: rgba(17, 17, 17, 0.45);

@@ -16,10 +16,11 @@ export function generateStaticParams() {
   return allTourParams().map(({ slug, tourSlug }) => ({ slug, tourSlug }));
 }
 
-export function generateMetadata(props: any) {
-  const { params } = props as { params: { slug: string; tourSlug: string } };
-  const tour = getTour(params.slug, params.tourSlug);
-  const dest = getDestination(params.slug);
+export async function generateMetadata(props: any) {
+  const { params } = props as { params: Promise<{ slug: string; tourSlug: string }> };
+  const { slug, tourSlug } = await params;
+  const tour = getTour(slug, tourSlug);
+  const dest = getDestination(slug);
   if (!tour || !dest) return { title: 'Tour · Soul Expeditions Africa' };
   return {
     title: `${tour.title} · ${dest.name} · Soul Expeditions Africa`,
@@ -27,10 +28,11 @@ export function generateMetadata(props: any) {
   };
 }
 
-export default function TourDetail(props: any) {
-  const { params } = props as { params: { slug: string; tourSlug: string } };
-  const dest = getDestination(params.slug);
-  const tour = getTour(params.slug, params.tourSlug);
+export default async function TourDetail(props: any) {
+  const { params } = props as { params: Promise<{ slug: string; tourSlug: string }> };
+  const { slug, tourSlug } = await params;
+  const dest = getDestination(slug);
+  const tour = getTour(slug, tourSlug);
   if (!dest || !tour) notFound();
 
   const otherTours = dest.tours.filter((t) => t.slug !== tour.slug).slice(0, 3);

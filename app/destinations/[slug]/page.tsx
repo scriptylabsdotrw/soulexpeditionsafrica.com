@@ -7,9 +7,10 @@ export function generateStaticParams() {
   return destinations.map((d) => ({ slug: d.slug }));
 }
 
-export function generateMetadata(props: any) {
-  const { params } = props as { params: { slug: string } };
-  const d = getDestination(params.slug);
+export async function generateMetadata(props: any) {
+  const { params } = props as { params: Promise<{ slug: string }> };
+  const { slug } = await params;
+  const d = getDestination(slug);
   if (!d) return { title: 'Destination · Soul Expeditions Africa' };
   return {
     title: `${d.name} · Soul Expeditions Africa`,
@@ -17,9 +18,10 @@ export function generateMetadata(props: any) {
   };
 }
 
-export default function DestinationDetail(props: any) {
-  const { params } = props as { params: { slug: string } };
-  const d = getDestination(params.slug);
+export default async function DestinationDetail(props: any) {
+  const { params } = props as { params: Promise<{ slug: string }> };
+  const { slug } = await params;
+  const d = getDestination(slug);
   if (!d) notFound();
 
   return (

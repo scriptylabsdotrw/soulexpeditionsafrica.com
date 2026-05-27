@@ -63,7 +63,15 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      /* Accept any of the common Postgres env-var names so local Docker
+         (DATABASE_URI) and Vercel/Neon (DATABASE_URL / POSTGRES_URL) work
+         without per-platform config. */
+      connectionString:
+        process.env.DATABASE_URI ||
+        process.env.DATABASE_URL ||
+        process.env.POSTGRES_URL ||
+        process.env.POSTGRES_PRISMA_URL ||
+        '',
     },
   }),
   sharp,

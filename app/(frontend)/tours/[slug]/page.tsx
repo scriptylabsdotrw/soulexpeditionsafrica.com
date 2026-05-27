@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
-  getAllThemeSlugs,
   getTourTheme,
   getTourThemes,
   getTours,
@@ -10,11 +9,6 @@ import {
 } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
-
-export async function generateStaticParams() {
-  const slugs = await getAllThemeSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
 
 export async function generateMetadata(props: any) {
   const { params } = props as { params: Promise<{ slug: string }> };

@@ -1,19 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import {
-  getAllDestinationSlugs,
-  getDestination,
-  getDestinations,
-  tourTiers,
-} from '@/lib/data';
+import { getDestination, getDestinations, tourTiers } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
-
-export async function generateStaticParams() {
-  const slugs = await getAllDestinationSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
 
 export async function generateMetadata(props: any) {
   const { params } = props as { params: Promise<{ slug: string }> };

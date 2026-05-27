@@ -73,6 +73,9 @@ export default buildConfig({
         process.env.POSTGRES_PRISMA_URL ||
         '',
     },
+    /* Auto-sync the schema on startup (dev + prod). Acceptable for a single-
+       writer admin site; switch to proper migrations later if needed. */
+    push: true,
   }),
   sharp,
 });

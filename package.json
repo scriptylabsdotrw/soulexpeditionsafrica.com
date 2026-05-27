@@ -14,7 +14,9 @@
     "seed:extended": "tsx -r dotenv/config scripts/seed-extended.ts dotenv_config_path=.env.local"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "@payloadcms/db-postgres": "^3.85.0",
+    "@payloadcms/db-vercel-postgres": "^3.85.0",
     "@payloadcms/next": "^3.85.0",
     "@payloadcms/richtext-lexical": "^3.85.0",
     "framer-motion": "^12.0.0",

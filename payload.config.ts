@@ -1,6 +1,7 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
+import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
@@ -61,21 +62,22 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'src/payload-types.ts'),
   },
-  db: postgresAdapter({
-    pool: {
-      /* Accept any of the common Postgres env-var names so local Docker
-         (DATABASE_URI) and Vercel/Neon (DATABASE_URL / POSTGRES_URL) work
-         without per-platform config. */
-      connectionString:
-        process.env.DATABASE_URI ||
-        process.env.DATABASE_URL ||
-        process.env.POSTGRES_URL ||
-        process.env.POSTGRES_PRISMA_URL ||
-        '',
-    },
-    /* Auto-sync the schema on startup (dev + prod). Acceptable for a single-
-       writer admin site; switch to proper migrations later if needed. */
-    push: true,
-  }),
+  /* On Vercel (any POSTGRES_URL set by the Neon Marketplace integration),
+     use the serverless-friendly adapter that auto-pushes schema on cold start.
+     Locally (Docker), keep the standard pg pool. */
+  db: process.env.POSTGRES_URL
+    ? vercelPostgresAdapter({
+        pool: { connectionString: process.env.POSTGRES_URL },
+        push: true,
+      })
+    : postgresAdapter({
+        pool: {
+          connectionString:
+            process.env.DATABASE_URI ||
+            process.env.DATABASE_URL ||
+            '',
+        },
+        push: true,
+      }),
   sharp,
 });

@@ -50,3 +50,10 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+# Payload uploads (admin-managed, not source-controlled)
+public/media/
+
+# Stray docs accidentally placed in public/
+public/logos/*.docx
+public/logos/*.txt

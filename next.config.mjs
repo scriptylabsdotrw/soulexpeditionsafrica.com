@@ -1,17 +1,19 @@
+import { withPayload } from '@payloadcms/next/withPayload';
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com'
+        hostname: 'images.unsplash.com',
       },
       {
         protocol: 'https',
-        hostname: 'images.pexels.com'
-      }
-    ]
-  }
+        hostname: 'images.pexels.com',
+      },
+    ],
+  },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig, { devBundleServerPackages: false });

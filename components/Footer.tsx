@@ -87,12 +87,13 @@ function SocialIcon({ name, className = '' }: { name: SocialName; className?: st
 
 const groups = [
   {
-    title: 'Expeditions',
+    title: 'Tours',
     links: [
-      { label: 'Gorilla Trekking', href: '/expeditions/gorilla-trekking' },
-      { label: 'Great Migration', href: '/expeditions/great-migration' },
-      { label: 'Cultural Heritage', href: '/expeditions/cultural-heritage' },
-      { label: 'Indian Ocean Escape', href: '/expeditions/indian-ocean-escape' },
+      { label: 'Honeymoon', href: '/tours/honeymoon' },
+      { label: 'Active', href: '/tours/active' },
+      { label: 'History', href: '/tours/history' },
+      { label: 'Schools', href: '/tours/schools' },
+      { label: 'Corporate', href: '/tours/corporate' },
     ],
   },
   {

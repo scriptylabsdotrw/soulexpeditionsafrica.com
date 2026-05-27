@@ -1,0 +1,1165 @@
+/* ============================================================
+   Soul Expeditions Africa — Admin theme
+   Brand: #F58220 (orange) on editorial neutrals.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+/* ── Tokens ─────────────────────────────────────────────── */
+:root {
+  --soulx-brand: #f58220;
+  --soulx-brand-hover: #ff9d2e;
+  --soulx-brand-deep: #c5641a;
+  --soulx-brand-soft: rgba(245, 130, 32, 0.12);
+  --soulx-ink: #0a0a0a;
+  --soulx-ink-soft: #404040;
+  --soulx-muted: #737373;
+  --soulx-line: #e5e5e5;
+  --soulx-surface: #ffffff;
+  --soulx-surface-tint: #fafafa;
+  --soulx-radius: 4px;
+}
+
+/* ── Payload theme variable overrides ───────────────────── */
+:root,
+[data-theme='light'] {
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --theme-bg: var(--soulx-surface);
+  --theme-input-bg: var(--soulx-surface-tint);
+  --theme-text: var(--soulx-ink);
+  --theme-border-color: var(--soulx-line);
+
+  --theme-elevation-0: #ffffff;
+  --theme-elevation-25: #fbfbfb;
+  --theme-elevation-50: #fafafa;
+  --theme-elevation-100: #f5f5f5;
+  --theme-elevation-150: #ededed;
+  --theme-elevation-200: #e5e5e5;
+  --theme-elevation-300: #d4d4d4;
+  --theme-elevation-400: #a3a3a3;
+  --theme-elevation-500: #737373;
+  --theme-elevation-600: #525252;
+  --theme-elevation-700: #404040;
+  --theme-elevation-800: #262626;
+  --theme-elevation-900: #171717;
+  --theme-elevation-1000: #0a0a0a;
+
+  --theme-success-50: #fff4ea;
+  --theme-success-100: #ffe2c4;
+  --theme-success-150: #ffd0a0;
+  --theme-success-200: #ffbd7e;
+  --theme-success-300: #ff9d44;
+  --theme-success-400: #ff8a26;
+  --theme-success-500: var(--soulx-brand);
+  --theme-success-600: var(--soulx-brand-deep);
+  --theme-success-700: #a14e10;
+  --theme-success-800: #793a0c;
+  --theme-success-900: #4d2407;
+}
+
+[data-theme='dark'] {
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --theme-bg: #0a0a0a;
+  --theme-text: #fafafa;
+  --theme-input-bg: #171717;
+  --theme-border-color: #262626;
+
+  --theme-elevation-0: #0a0a0a;
+  --theme-elevation-50: #171717;
+  --theme-elevation-100: #1f1f1f;
+  --theme-elevation-150: #262626;
+  --theme-elevation-200: #2e2e2e;
+  --theme-elevation-300: #404040;
+  --theme-elevation-400: #525252;
+  --theme-elevation-500: #737373;
+  --theme-elevation-600: #a3a3a3;
+  --theme-elevation-700: #d4d4d4;
+  --theme-elevation-800: #e5e5e5;
+  --theme-elevation-900: #f5f5f5;
+  --theme-elevation-1000: #ffffff;
+
+  --theme-success-500: var(--soulx-brand);
+}
+
+/* ── Base typography ────────────────────────────────────── */
+body,
+.payload-default-theme,
+[data-theme='light'],
+[data-theme='dark'] {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-feature-settings: 'ss01', 'cv11';
+  letter-spacing: -0.005em;
+}
+
+h1, h2, h3, h4, h5,
+.collection-list__sub-header h2,
+.dashboard__heading,
+.doc-controls__heading {
+  font-family: 'Space Grotesk', sans-serif !important;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+
+/* ── Sidebar shell ─────────────────────────────────────── */
+.nav,
+.nav__wrap {
+  background: var(--soulx-surface) !important;
+  border-right: 1px solid var(--soulx-line) !important;
+}
+
+.nav__content {
+  padding: 0 0.75rem 1.5rem !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* ── Brand block (replaces the small Icon) ─────────────── */
+.nav__brand {
+  padding: 0 !important;
+  border-bottom: 1px solid var(--soulx-line) !important;
+  background: var(--soulx-surface) !important;
+  margin-bottom: 0.75rem;
+}
+
+/* Hide the wrapper's built-in icon constraints so our brandblock can breathe */
+.nav__brand .graphic-icon {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.soulx-brandblock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 1.75rem 1.25rem 1.5rem;
+  width: 100%;
+  background: linear-gradient(180deg, #fff 0%, var(--soulx-surface-tint) 100%);
+}
+
+.soulx-brandblock__mark {
+  height: auto !important;
+  width: 200px !important;
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+}
+
+.soulx-brandblock__caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: var(--soulx-brand-deep);
+  font-weight: 700;
+  padding-left: 0.15rem;
+}
+
+.soulx-brandblock__caption::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--soulx-brand);
+}
+
+/* ── Sidebar brand block (first visible in the sidebar) ── */
+.soulx-sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 1rem 1rem 0.85rem;
+  margin: -1.5rem -0.75rem 0.5rem;
+  background: linear-gradient(180deg, #fff 0%, var(--soulx-surface-tint) 100%);
+  border-bottom: 1px solid var(--soulx-line);
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.soulx-sidebar-brand:hover {
+  background: linear-gradient(180deg, #fff 0%, var(--soulx-brand-soft) 100%);
+}
+
+.soulx-sidebar-brand__mark {
+  height: auto !important;
+  width: 130px !important;
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.05));
+}
+
+.soulx-sidebar-brand__caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.36em;
+  color: var(--soulx-brand-deep);
+  font-weight: 700;
+}
+
+.soulx-sidebar-brand__dash {
+  display: inline-block;
+  width: 12px;
+  height: 1px;
+  background: var(--soulx-brand);
+}
+
+/* ── Custom Studio section (Dashboard entry) ───────────── */
+.soulx-nav-section {
+  padding: 0.5rem 0.25rem 0;
+  margin-bottom: 0.5rem;
+}
+
+.soulx-nav-section__label,
+.nav-group__label {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 0.55rem !important;
+  letter-spacing: 0.4em !important;
+  text-transform: uppercase;
+  color: var(--soulx-muted) !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.75rem 0.5rem !important;
+  margin: 0 !important;
+}
+
+.soulx-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.soulx-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--soulx-radius);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--soulx-ink-soft);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  position: relative;
+}
+
+.soulx-nav-link:hover {
+  background: var(--soulx-brand-soft);
+  color: var(--soulx-brand-deep);
+}
+
+.soulx-nav-link--featured {
+  background: var(--soulx-brand-soft);
+  color: var(--soulx-brand-deep);
+  font-weight: 600;
+}
+
+.soulx-nav-link--featured::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 60%;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--soulx-brand);
+  transform: translate(-0.75rem, -50%);
+}
+
+.soulx-nav-link__icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: currentColor;
+}
+
+.soulx-nav-section__divider {
+  display: block;
+  height: 1px;
+  background: var(--soulx-line);
+  margin: 0.75rem 0 0;
+}
+
+/* ── Payload's auto-generated nav links — restyle ──────── */
+.nav__link,
+.nav-group__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.75rem !important;
+  border-radius: var(--soulx-radius) !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  color: var(--soulx-ink-soft) !important;
+  letter-spacing: 0 !important;
+  text-decoration: none !important;
+  transition: background 0.15s ease, color 0.15s ease !important;
+  position: relative;
+}
+
+.nav__link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 60%;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--soulx-brand);
+  transform: translate(-0.75rem, -50%);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.nav__link:hover,
+.nav-group__toggle:hover {
+  color: var(--soulx-brand-deep) !important;
+  background: var(--soulx-brand-soft) !important;
+}
+
+.nav__link.active,
+.nav__link[aria-current='page'],
+.nav__link--active {
+  color: var(--soulx-brand-deep) !important;
+  background: var(--soulx-brand-soft) !important;
+  font-weight: 600 !important;
+}
+
+.nav__link.active::before,
+.nav__link[aria-current='page']::before,
+.nav__link--active::before {
+  opacity: 1;
+}
+
+/* Subtle separator before each collection group */
+.nav-group {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.nav-group + .nav-group {
+  border-top: 1px solid var(--soulx-line);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+/* Account / logout footer */
+.nav__footer {
+  background: var(--soulx-surface) !important;
+  border-top: 1px solid var(--soulx-line) !important;
+  padding: 0.75rem !important;
+}
+
+.nav__footer .btn,
+.nav__footer a {
+  border-radius: var(--soulx-radius) !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* ── Field labels — uppercase tracked editorial ────────── */
+.field-label,
+.field-label-wrap label,
+.collapsible__toggle label {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.62rem !important;
+  font-weight: 600 !important;
+  color: var(--soulx-muted) !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.field-label .required {
+  color: var(--soulx-brand);
+}
+
+.field-description {
+  font-size: 0.78rem;
+  color: var(--soulx-muted);
+  font-style: italic;
+}
+
+/* ── Inputs ────────────────────────────────────────────── */
+.field-type input[type='text'],
+.field-type input[type='email'],
+.field-type input[type='number'],
+.field-type input[type='password'],
+.field-type input[type='url'],
+.field-type input[type='date'],
+.field-type textarea,
+.field-type .rs__control,
+.react-datepicker-wrapper input,
+.template-minimal input,
+.template-minimal__wrap input,
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='url'],
+input[type='number'],
+textarea {
+  border-radius: var(--soulx-radius) !important;
+  border-color: var(--soulx-line) !important;
+  background: var(--soulx-surface-tint) !important;
+  color: var(--soulx-ink) !important;
+  font-weight: 500;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease !important;
+}
+
+.field-type input::placeholder,
+.field-type textarea::placeholder,
+.template-minimal input::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: var(--soulx-muted) !important;
+  font-weight: 400;
+  opacity: 1;
+}
+
+/* Browser autofill — keep the text black on our tinted background. */
+.field-type input:-webkit-autofill,
+.template-minimal input:-webkit-autofill,
+input:-webkit-autofill {
+  -webkit-text-fill-color: var(--soulx-ink) !important;
+  -webkit-box-shadow: 0 0 0 30px var(--soulx-surface-tint) inset !important;
+  caret-color: var(--soulx-ink) !important;
+}
+
+.field-type input:focus,
+.field-type textarea:focus,
+.field-type .rs__control--is-focused,
+.react-datepicker-wrapper input:focus,
+.template-minimal input:focus,
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='url']:focus,
+input[type='number']:focus,
+textarea:focus {
+  border-color: var(--soulx-brand) !important;
+  background: var(--soulx-surface) !important;
+  color: var(--soulx-ink) !important;
+  box-shadow: 0 0 0 3px var(--soulx-brand-soft) !important;
+  outline: none !important;
+}
+
+/* React-select / multi-select rendered text */
+.rs__single-value,
+.rs__input-container,
+.rs__placeholder {
+  color: var(--soulx-ink) !important;
+}
+
+.rs__placeholder {
+  color: var(--soulx-muted) !important;
+}
+
+/* ── Buttons ───────────────────────────────────────────── */
+.btn {
+  border-radius: 999px !important;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  transition: all 0.18s ease;
+}
+
+.btn--style-primary {
+  background: var(--soulx-brand) !important;
+  color: #ffffff !important;
+  border-color: var(--soulx-brand) !important;
+  box-shadow: 0 6px 18px rgba(245, 130, 32, 0.25);
+}
+
+.btn--style-primary:hover,
+.btn--style-primary:focus {
+  background: var(--soulx-brand-hover) !important;
+  border-color: var(--soulx-brand-hover) !important;
+  box-shadow: 0 10px 24px rgba(245, 130, 32, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn--style-secondary {
+  background: var(--soulx-ink) !important;
+  color: #ffffff !important;
+  border-color: var(--soulx-ink) !important;
+}
+
+.btn--style-secondary:hover {
+  background: var(--soulx-brand) !important;
+  border-color: var(--soulx-brand) !important;
+}
+
+.btn--style-pill,
+.btn--style-tab {
+  background: transparent !important;
+  border: 1px solid var(--soulx-line) !important;
+  color: var(--soulx-ink-soft) !important;
+}
+
+.btn--style-pill:hover,
+.btn--style-pill.active,
+.btn--style-tab:hover,
+.btn--style-tab.active {
+  border-color: var(--soulx-brand) !important;
+  color: var(--soulx-brand) !important;
+  background: var(--soulx-brand-soft) !important;
+}
+
+/* ── Document header / breadcrumb ──────────────────────── */
+.doc-controls__heading,
+.collection-list__sub-header h2 {
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+
+.step-nav {
+  font-size: 0.62rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--soulx-muted);
+  padding: 1rem 0;
+}
+
+.step-nav a {
+  color: var(--soulx-muted) !important;
+
+  &:hover {
+    color: var(--soulx-brand) !important;
+  }
+}
+
+/* ── Tables / lists ────────────────────────────────────── */
+.collection-list__table,
+.table {
+  border-color: var(--soulx-line);
+  border-radius: var(--soulx-radius);
+  overflow: hidden;
+}
+
+.collection-list__table thead,
+.table thead {
+  background: var(--soulx-surface-tint);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.62rem;
+  color: var(--soulx-muted);
+}
+
+.collection-list__table tbody tr:hover,
+.table tbody tr:hover {
+  background: var(--soulx-brand-soft);
+}
+
+/* ── Cards (Dashboard / sidebar) ───────────────────────── */
+.dashboard__card,
+.card,
+.collection-list__card {
+  border-radius: var(--soulx-radius) !important;
+  border-color: var(--soulx-line) !important;
+  background: var(--soulx-surface) !important;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.dashboard__card:hover,
+.card:hover,
+.collection-list__card:hover {
+  border-color: var(--soulx-brand) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard__card-title {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* ── Login screen — editorial dark canvas, premium card ── */
+.template-minimal,
+.template-default--style-minimal {
+  background: radial-gradient(
+      ellipse at 15% 10%,
+      rgba(245, 130, 32, 0.18) 0%,
+      rgba(245, 130, 32, 0) 45%
+    ),
+    radial-gradient(
+      ellipse at 85% 95%,
+      rgba(245, 130, 32, 0.1) 0%,
+      rgba(245, 130, 32, 0) 50%
+    ),
+    linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%) !important;
+  min-height: 100svh;
+}
+
+.template-minimal__wrap,
+.template-default--style-minimal .template-minimal__wrap {
+  background: var(--soulx-surface);
+  border-radius: var(--soulx-radius);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45);
+  padding: 3rem 2.5rem !important;
+  max-width: 460px;
+}
+
+.soulx-admin-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+
+  img {
+    max-width: 220px;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.soulx-admin-logo__caption {
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: var(--soulx-muted);
+}
+
+/* ── Pills / status badges ─────────────────────────────── */
+.pill,
+.label {
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+}
+
+.pill--style-success,
+.pill--has-action {
+  background: var(--soulx-brand-soft) !important;
+  color: var(--soulx-brand-deep) !important;
+}
+
+/* ── Selection / multi-select chips ────────────────────── */
+.rs__multi-value {
+  background: var(--soulx-brand-soft) !important;
+  border-radius: 999px !important;
+  color: var(--soulx-brand-deep) !important;
+}
+
+.rs__multi-value__label {
+  color: var(--soulx-brand-deep) !important;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ── Upload field — premium drop zone ──────────────────── */
+.upload__dropzone,
+.dropzone {
+  border-radius: var(--soulx-radius);
+  border: 1.5px dashed var(--soulx-line) !important;
+  background: var(--soulx-surface-tint) !important;
+  padding: 2rem !important;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+.upload__dropzone:hover,
+.dropzone:hover,
+.upload__dropzone--is-active {
+  border-color: var(--soulx-brand) !important;
+  background: var(--soulx-brand-soft) !important;
+}
+
+/* ── Save/Publish action bar ───────────────────────────── */
+.doc-controls__controls .btn-group .btn {
+  margin-left: 0.5rem;
+}
+
+.doc-controls {
+  background: var(--soulx-surface-tint);
+  border-bottom: 1px solid var(--soulx-line);
+  padding: 1rem 1.5rem;
+}
+
+/* ── Sidebar nav scroll polish ─────────────────────────── */
+.nav__wrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--soulx-line) transparent;
+}
+
+/* ── Tabs ─────────────────────────────────────────────── */
+.tabs-field__tabs {
+  border-bottom-color: var(--soulx-line);
+}
+
+.tabs-field__tab-button.active {
+  color: var(--soulx-brand) !important;
+  border-bottom-color: var(--soulx-brand) !important;
+}
+
+/* ── Account / footer accents ──────────────────────────── */
+.account-header,
+.nav__footer {
+  border-color: var(--soulx-line);
+}
+
+/* =================================================================
+   SOULX DASHBOARD (rendered above the default collection cards
+   via admin.components.beforeDashboard)
+   ================================================================= */
+
+.soulx-dashboard {
+  font-family: 'Inter', sans-serif;
+  color: var(--soulx-ink);
+  padding: 2rem clamp(1.5rem, 3vw, 3rem);
+  background: var(--soulx-surface);
+  border-bottom: 1px solid var(--soulx-line);
+  margin-bottom: 1rem;
+}
+
+/* ── Hero ──────────────────────────────────────────────── */
+.soulx-dashboard__hero {
+  display: grid;
+  gap: 2rem;
+  align-items: end;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--soulx-line);
+  margin-bottom: 2.5rem;
+}
+@media (min-width: 900px) {
+  .soulx-dashboard__hero {
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 3rem;
+  }
+}
+
+.soulx-dashboard__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1.25rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: var(--soulx-muted);
+}
+
+.soulx-dashboard__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--soulx-brand);
+  box-shadow: 0 0 0 4px var(--soulx-brand-soft);
+}
+
+.soulx-dashboard__title {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 300;
+  color: var(--soulx-ink);
+  margin: 0 0 1.25rem;
+}
+
+.soulx-dashboard__brandword {
+  color: var(--soulx-brand);
+  font-weight: 600;
+}
+
+.soulx-dashboard__lede {
+  max-width: 56ch;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--soulx-ink-soft);
+}
+
+.soulx-dashboard__hero-cta {
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: var(--soulx-radius);
+  background: var(--soulx-ink);
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.soulx-dashboard__hero-cta:hover {
+  background: var(--soulx-brand);
+  transform: translateY(-2px);
+}
+
+.soulx-dashboard__hero-cta-eyebrow {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-weight: 600;
+  color: var(--soulx-brand);
+}
+.soulx-dashboard__hero-cta:hover .soulx-dashboard__hero-cta-eyebrow {
+  color: #ffffff;
+}
+.soulx-dashboard__hero-cta-label {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* ── Section header ────────────────────────────────────── */
+.soulx-dashboard__section {
+  margin-bottom: 3rem;
+}
+
+.soulx-dashboard__section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.soulx-dashboard__rule {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--soulx-brand);
+  flex: none;
+}
+
+.soulx-dashboard__section-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  font-weight: 600;
+  color: var(--soulx-muted);
+}
+
+.soulx-dashboard__section-link {
+  margin-left: auto;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-weight: 600;
+  color: var(--soulx-ink-soft);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.soulx-dashboard__section-link:hover {
+  color: var(--soulx-brand);
+}
+
+/* ── KPI grid ─────────────────────────────────────────── */
+.soulx-dashboard__stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, 1fr);
+  background: var(--soulx-line);
+  border: 1px solid var(--soulx-line);
+  border-radius: var(--soulx-radius);
+  overflow: hidden;
+}
+@media (min-width: 720px) {
+  .soulx-dashboard__stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1100px) {
+  .soulx-dashboard__stats {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.soulx-dashboard__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem 1.5rem;
+  background: var(--soulx-surface);
+  color: var(--soulx-ink);
+  text-decoration: none;
+  position: relative;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.soulx-dashboard__stat:hover {
+  background: var(--soulx-brand-soft);
+  color: var(--soulx-ink);
+}
+
+.soulx-dashboard__stat--brand {
+  background: var(--soulx-brand-soft);
+}
+.soulx-dashboard__stat--brand:hover {
+  background: rgba(245, 130, 32, 0.2);
+}
+
+.soulx-dashboard__stat-value {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 2.4rem;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--soulx-ink);
+  line-height: 1;
+}
+
+.soulx-dashboard__stat-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-weight: 600;
+  color: var(--soulx-muted);
+}
+
+.soulx-dashboard__stat-sub {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--soulx-brand);
+}
+
+.soulx-dashboard__stat-arrow {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-size: 0.85rem;
+  opacity: 0;
+  color: var(--soulx-brand);
+  transform: translateX(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.soulx-dashboard__stat:hover .soulx-dashboard__stat-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Quick actions ────────────────────────────────────── */
+.soulx-dashboard__actions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 720px) {
+  .soulx-dashboard__actions {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.soulx-dashboard__action {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--soulx-line);
+  border-radius: var(--soulx-radius);
+  background: var(--soulx-surface);
+  color: var(--soulx-ink);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+.soulx-dashboard__action:hover {
+  border-color: var(--soulx-brand);
+  color: var(--soulx-brand);
+  transform: translateY(-2px);
+}
+
+.soulx-dashboard__action-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--soulx-brand-soft);
+  color: var(--soulx-brand);
+  font-size: 1rem;
+  font-weight: 500;
+  flex: none;
+}
+
+/* ── Enquiries list ───────────────────────────────────── */
+.soulx-dashboard__enquiries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--soulx-line);
+  border: 1px solid var(--soulx-line);
+  border-radius: var(--soulx-radius);
+  overflow: hidden;
+}
+
+.soulx-dashboard__enquiry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--soulx-surface);
+  color: var(--soulx-ink);
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+.soulx-dashboard__enquiry:hover {
+  background: var(--soulx-brand-soft);
+}
+
+.soulx-dashboard__enquiry-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.soulx-dashboard__enquiry-name {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--soulx-ink);
+}
+
+.soulx-dashboard__enquiry-meta {
+  font-size: 0.8rem;
+  color: var(--soulx-muted);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.soulx-dashboard__enquiry-side {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: none;
+}
+
+.soulx-dashboard__enquiry-time {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--soulx-muted);
+}
+
+.soulx-dashboard__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: var(--soulx-surface-tint);
+  border: 1px solid var(--soulx-line);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--soulx-muted);
+}
+
+.soulx-dashboard__pill--new {
+  background: var(--soulx-brand-soft);
+  border-color: rgba(245, 130, 32, 0.3);
+  color: var(--soulx-brand-deep);
+}
+
+.soulx-dashboard__pill--replied {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #166534;
+}
+
+.soulx-dashboard__pill--in-progress {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #1e40af;
+}
+
+.soulx-dashboard__pill--closed {
+  background: var(--soulx-surface-tint);
+  border-color: var(--soulx-line);
+  color: var(--soulx-muted);
+}
+
+/* ── Empty state ──────────────────────────────────────── */
+.soulx-dashboard__empty {
+  padding: 2.5rem 2rem;
+  border: 1px dashed var(--soulx-line);
+  border-radius: var(--soulx-radius);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--soulx-muted);
+  background: var(--soulx-surface-tint);
+}
+
+/* =================================================================
+   Default Payload dashboard cards — make them match the dashboard
+   ================================================================= */
+.dashboard {
+  padding-top: 0 !important;
+}
+
+.dashboard__group {
+  margin-top: 2.5rem;
+}
+
+.dashboard__label {
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--soulx-muted);
+  margin-bottom: 1rem;
+}
+
+.dashboard__card-list,
+.dashboard__group-list {
+  gap: 0.75rem !important;
+}
+
+.dashboard__card {
+  padding: 1.5rem !important;
+  background: var(--soulx-surface) !important;
+  border: 1px solid var(--soulx-line) !important;
+  border-radius: var(--soulx-radius) !important;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+.dashboard__card:hover {
+  border-color: var(--soulx-brand) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06) !important;
+}
+
+.dashboard__card-title {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}

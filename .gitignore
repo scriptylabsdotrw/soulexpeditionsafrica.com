@@ -50,6 +50,7 @@ next-env.d.ts
 
 .vercel
 .env*.local
+.env.vercel-prod*
 
 # Payload uploads (admin-managed, not source-controlled)
 public/media/

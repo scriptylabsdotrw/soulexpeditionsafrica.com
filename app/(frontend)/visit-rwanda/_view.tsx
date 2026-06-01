@@ -535,7 +535,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           MANIFESTO
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-20 lg:px-10 lg:py-28">
+      <section className="px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1180px]">
           <motion.div
             initial="hidden"
@@ -569,7 +569,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           SIX PILLARS — alternating editorial blocks
          ═════════════════════════════════════════════════════════ */}
-      <section className="bg-neutral-50/70 px-6 py-20 lg:px-10 lg:py-28">
+      <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1280px] space-y-16 lg:space-y-20">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
@@ -652,7 +652,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           PLACES BY CATEGORY — Cultural, History, Memory, Nature, Modern
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-20 lg:px-10 lg:py-28">
+      <section className="px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1280px]">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
@@ -768,7 +768,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           COUNTRY AT A GLANCE
          ═════════════════════════════════════════════════════════ */}
-      <section className="bg-neutral-50/70 px-6 py-20 lg:px-10 lg:py-28">
+      <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1280px]">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
@@ -807,7 +807,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           WHEN TO VISIT
          ═════════════════════════════════════════════════════════ */}
-      <section className="bg-neutral-950 px-6 py-32 text-white lg:px-10 lg:py-40">
+      <section className="bg-neutral-950 px-6 py-20 text-white lg:px-10 lg:py-28">
         <div className="mx-auto max-w-[1280px]">
           <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
             <div className="lg:sticky lg:top-32 lg:self-start">
@@ -869,7 +869,7 @@ export default function VisitRwandaView({
           CURATED RWANDA TOURS
          ═════════════════════════════════════════════════════════ */}
       {tours.length > 0 && (
-        <section className="px-6 py-20 lg:px-10 lg:py-28">
+        <section className="px-6 py-16 lg:px-10 lg:py-24">
           <div className="mx-auto max-w-[1280px]">
             <motion.header
               initial={{ opacity: 0, y: 18 }}
@@ -958,7 +958,7 @@ export default function VisitRwandaView({
           GUEST QUOTE — only renders when a featured testimonial exists
          ═════════════════════════════════════════════════════════ */}
       {featuredTestimonial && (
-        <section className="bg-neutral-50/70 px-6 py-20 lg:px-10 lg:py-28">
+        <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
           <div className="mx-auto max-w-[1280px]">
             <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
               <motion.div
@@ -1014,54 +1014,68 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           FINAL CTA
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative isolate overflow-hidden bg-neutral-950 px-6 py-32 text-white lg:px-10 lg:py-40">
-        <div className="glow-orb -left-32 top-1/2 -translate-y-1/2 opacity-50" aria-hidden />
-        <div className="glow-orb -right-32 top-1/4 opacity-30" aria-hidden />
+      <section className="relative isolate flex min-h-[580px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[640px]">
+        <motion.div
+          initial={{ scale: 1.08 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 -z-10"
+        >
+          <Image
+            src={IMG.aerialHills}
+            alt="The thousand hills of Rwanda at dusk"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/70 to-neutral-950/35" />
+        </motion.div>
 
-        <div className="relative mx-auto max-w-[1180px]">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-15% 0px' }}
-            variants={stagger}
-            className="grid gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-end"
-          >
-            <div className="space-y-8">
-              <motion.p
-                variants={reveal}
-                className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]"
-              >
-                Begin
-              </motion.p>
-              <motion.h2
-                variants={reveal}
-                className="text-balance text-[clamp(2.4rem,5.2vw,4.6rem)] font-light leading-[1.02] tracking-[-0.035em]"
-              >
-                <span className="font-light">A privately designed Rwanda journey,</span>
-                <br />
-                <span className="font-bold text-[#F58220]">tuned to the way you travel.</span>
-              </motion.h2>
-            </div>
+        <div className="relative w-full px-6 pb-16 pt-28 lg:px-10 lg:pb-20 lg:pt-36">
+          <div className="mx-auto max-w-[1280px]">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-15% 0px' }}
+              variants={stagger}
+              className="grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-end"
+            >
+              <div className="space-y-7">
+                <motion.p
+                  variants={reveal}
+                  className="flex items-center gap-4 text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]"
+                >
+                  <span className="inline-block h-px w-10 bg-[#F58220]" />
+                  Begin your journey
+                </motion.p>
+                <motion.h2
+                  variants={reveal}
+                  className="text-balance text-[clamp(2.4rem,5.2vw,4.6rem)] font-light leading-[1.02] tracking-[-0.035em]"
+                >
+                  <span className="font-light">A privately designed Rwanda journey,</span>{' '}
+                  <span className="font-bold text-[#F58220]">tuned to the way you travel.</span>
+                </motion.h2>
+              </div>
 
-            <motion.div variants={reveal} className="flex flex-col gap-4 lg:items-end">
-              <Link
-                href="/contact"
-                className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#F58220] px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-white hover:text-neutral-950"
-              >
-                Inquire Now
-                <span className="transition group-hover:translate-x-1">→</span>
-              </Link>
-              <Link
-                href="/destinations/rwanda"
-                className="group inline-flex w-fit items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white/75 transition hover:text-[#F58220]"
-              >
-                <span className="relative pb-1">
+              <motion.div variants={reveal} className="flex flex-col gap-4 lg:items-end">
+                <Link
+                  href="/contact"
+                  className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#F58220] px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-white hover:text-neutral-950"
+                >
+                  Inquire Now
+                  <span className="transition group-hover:translate-x-1">→</span>
+                </Link>
+                <Link
+                  href="/destinations/rwanda"
+                  className="group inline-flex w-fit items-center gap-3 rounded-full border border-white/25 px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white/85 transition hover:border-[#F58220] hover:text-[#F58220]"
+                >
                   Browse Rwanda tours
-                  <span className="absolute -bottom-0 left-0 h-px w-full bg-white/30 transition group-hover:bg-[#F58220]" />
-                </span>
-              </Link>
+                  <span className="transition group-hover:translate-x-1">→</span>
+                </Link>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </main>

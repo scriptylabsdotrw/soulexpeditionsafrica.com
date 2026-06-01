@@ -118,7 +118,7 @@ export default function SiteHeader() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-slate-200/60 bg-white/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-3 lg:px-10 lg:py-4">
+        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-3 lg:px-6 lg:py-4 xl:px-10">
           <Link
             href="/"
             className="flex items-center"
@@ -130,13 +130,13 @@ export default function SiteHeader() {
               width={480}
               height={144}
               priority
-              className="h-16 w-auto object-contain sm:h-20 lg:h-24"
+              className="h-16 w-auto object-contain sm:h-20 xl:h-24"
             />
           </Link>
 
           <nav
             aria-label="Primary"
-            className="hidden items-center gap-6 text-[0.7rem] font-medium uppercase tracking-[0.26em] text-slate-600 xl:flex 2xl:gap-8 2xl:tracking-[0.32em]"
+            className="hidden items-center gap-5 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-slate-600 lg:flex xl:gap-6 xl:tracking-[0.26em] 2xl:gap-8 2xl:tracking-[0.32em]"
           >
             {nav.map((item) =>
               item.kind === 'mega' ? (
@@ -196,14 +196,14 @@ export default function SiteHeader() {
               <span aria-hidden="true">→</span>
             </Link>
 
-            {/* Hamburger — visible until lg */}
+            {/* Hamburger — visible below lg */}
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="mobile-menu"
-              className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-950 transition hover:border-neutral-400 xl:hidden"
+              className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-950 transition hover:border-neutral-400 lg:hidden"
             >
               <span className="sr-only">Toggle menu</span>
               <span
@@ -236,7 +236,7 @@ export default function SiteHeader() {
           aria-hidden={!megaOpen}
           onMouseEnter={openMega}
           onMouseLeave={scheduleCloseMega}
-          className={`absolute inset-x-0 top-full hidden border-b border-slate-200 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.12)] transition duration-200 xl:block ${
+          className={`absolute inset-x-0 top-full hidden border-b border-slate-200 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.12)] transition duration-200 lg:block ${
             megaOpen
               ? 'pointer-events-auto translate-y-0 opacity-100'
               : 'pointer-events-none -translate-y-2 opacity-0'
@@ -311,7 +311,7 @@ export default function SiteHeader() {
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
-        className={`fixed inset-0 z-40 xl:hidden ${open ? '' : 'pointer-events-none'}`}
+        className={`fixed inset-0 z-40 lg:hidden ${open ? '' : 'pointer-events-none'}`}
       >
         {/* Backdrop */}
         <div

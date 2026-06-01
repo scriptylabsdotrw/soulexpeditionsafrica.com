@@ -20,6 +20,10 @@ const reveal = {
 };
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 
+/* Fallback hero backdrop. */
+const CONTACT_HERO =
+  'https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=2400&q=85';
+
 export default function ContactView({
   destinations,
   siteContent,
@@ -28,10 +32,10 @@ export default function ContactView({
   siteContent: SiteContent;
 }) {
   const contactRows = [
-    siteContent.studioAddress && { k: 'Studio', v: siteContent.studioAddress },
-    siteContent.studioEmail && { k: 'Email', v: siteContent.studioEmail },
-    siteContent.studioPhone && { k: 'Phone', v: siteContent.studioPhone },
-  ].filter(Boolean) as { k: string; v: string }[];
+    { k: 'Studio', v: siteContent.studioAddress || 'Kigali, Rwanda' },
+    { k: 'Email', v: siteContent.studioEmail || 'info@soulexpeditionsafrica.com' },
+    { k: 'Phone', v: siteContent.studioPhone || '+250 783 140 000' },
+  ] as { k: string; v: string }[];
   const [destinationSlug, setDestinationSlug] = useState<string | null>(null);
   const [tourSlug, setTourSlug] = useState<string | null>(null);
   const [tier, setTier] = useState<Tier | null>(null);
@@ -89,33 +93,39 @@ export default function ContactView({
 
   return (
     <main className="bg-white">
-      {/* ═════════════ HEADER ═════════════ */}
-      <section className="px-6 pt-32 pb-12 lg:px-10 lg:pt-40 lg:pb-16">
-        <div className="mx-auto max-w-[1280px]">
-          <motion.div
-            initial="hidden"
-            animate="show"
-            variants={stagger}
-            className="grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-end lg:gap-24"
-          >
-            <div className="space-y-7">
-              <motion.div variants={reveal} className="flex items-center gap-5">
-                <span className="h-px w-12 bg-[#F58220]" />
-                <span className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-neutral-500">
-                  Inquire now · Configurator
-                </span>
-              </motion.div>
-              <motion.h1
-                variants={reveal}
-                className="text-balance text-[clamp(2.8rem,7vw,6.4rem)] leading-[0.94] tracking-[-0.045em] text-neutral-950"
-              >
-                <span className="block font-light">Plan your</span>
-                <span className="block font-bold text-[#F58220]">trip.</span>
-              </motion.h1>
-            </div>
-            <motion.p variants={reveal} className="max-w-lg text-lg leading-9 text-neutral-600">
-              Select your destination, itinerary, and tier. Share your dates, and a Travel Designer
-              will respond personally within 24 hours. Pure expertise — no templates, no call
+      {/* ═════════════ HERO ═════════════ */}
+      <section className="relative isolate flex min-h-[62svh] flex-col justify-end overflow-hidden text-white">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src={destinations.find((d) => d.hero || d.image)?.hero || CONTACT_HERO}
+            alt="Begin planning your African journey"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="hero-overlay" />
+        </div>
+
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-14 pt-36 lg:px-10 lg:pb-16">
+          <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-4xl">
+            <motion.div variants={reveal} className="mb-8 flex items-center gap-3 text-[0.66rem] font-medium uppercase tracking-[0.4em] text-white/85">
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F58220] opacity-50" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#F58220]" />
+              </span>
+              <span>Inquire now · Trip configurator</span>
+            </motion.div>
+            <motion.h1
+              variants={reveal}
+              className="text-balance text-[clamp(2.8rem,7vw,6.4rem)] leading-[0.94] tracking-[-0.045em]"
+            >
+              <span className="block font-light">Plan your</span>
+              <span className="block font-bold text-[#F58220]">trip.</span>
+            </motion.h1>
+            <motion.p variants={reveal} className="mt-9 max-w-xl text-balance text-lg leading-9 text-white/85">
+              Choose your destination, itinerary, and tier below. Share your dates, and a Travel
+              Designer replies personally within 24 hours — pure expertise, no templates, no call
               centres.
             </motion.p>
           </motion.div>
@@ -544,18 +554,18 @@ export default function ContactView({
         </form>
       </Section>
 
-      {/* ═════════════ CONTACT FALLBACK — only renders if any field is set ═════════════ */}
+      {/* ═════════════ CONTACT DETAILS ═════════════ */}
       {contactRows.length > 0 && (
-        <section className="px-6 pb-32 lg:px-10">
-          <div
-            className={`mx-auto grid max-w-[1280px] gap-px overflow-hidden rounded-sm bg-neutral-200/80 lg:grid-cols-${Math.min(contactRows.length, 3)}`}
-          >
+        <section className="px-6 pb-24 lg:px-10">
+          <div className="mx-auto grid max-w-[1280px] gap-px overflow-hidden rounded-sm bg-neutral-200/80 sm:grid-cols-3">
             {contactRows.map((row) => (
-              <div key={row.k} className="bg-white px-9 py-8">
+              <div key={row.k} className="group bg-white px-9 py-8 transition hover:bg-neutral-50">
                 <p className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-neutral-500">
                   {row.k}
                 </p>
-                <p className="mt-3 text-base font-medium text-neutral-950">{row.v}</p>
+                <p className="mt-3 text-base font-medium text-neutral-950 transition group-hover:text-[#F58220]">
+                  {row.v}
+                </p>
               </div>
             ))}
           </div>

@@ -48,8 +48,7 @@ const RWANDA_FOREST =
 const RWANDA_GALLERY = {
   gorilla:
     'https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1400&q=85',
-  intore:
-    'https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1400&q=85',
+  intore: '/images/uploads/intore.jpg',
   safari:
     'https://images.unsplash.com/photo-1547970810-dc1eac37d174?auto=format&fit=crop&w=1400&q=85',
 };
@@ -282,7 +281,13 @@ export default function HomeView({
         <section className="border-y border-neutral-200/80 bg-white">
           <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
             <ul
-              className={`hairline-grid grid grid-cols-2 sm:grid-cols-${Math.min(stats.length, 4)}`}
+              className={`hairline-grid grid grid-cols-2 ${
+                stats.length >= 4
+                  ? 'sm:grid-cols-4'
+                  : stats.length === 3
+                    ? 'sm:grid-cols-3'
+                    : 'sm:grid-cols-2'
+              }`}
             >
               {stats.map((s) => (
                 <motion.li
@@ -291,9 +296,9 @@ export default function HomeView({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-10% 0px' }}
                   transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className="px-6 py-10 text-center sm:py-12"
+                  className="group px-6 py-10 text-center sm:py-12"
                 >
-                  <p className="text-4xl font-light tracking-tight text-neutral-950 sm:text-5xl">
+                  <p className="text-4xl font-light tracking-tight text-neutral-950 transition duration-300 group-hover:text-[#F58220] sm:text-5xl">
                     {s.value}
                   </p>
                   <p className="mt-3 text-[0.65rem] uppercase tracking-[0.35em] text-neutral-500">
@@ -307,34 +312,89 @@ export default function HomeView({
       )}
 
       {/* ═════════════════════════════════════════════════════════
-          MANIFESTO — Single oversized sentence
+          RWANDA CULTURE — INTORE (full-bleed, sits right after hero)
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-20 lg:px-10 lg:py-32" id="about">
-        <div className="mx-auto max-w-[1180px]">
+      <section className="relative overflow-hidden bg-neutral-950 text-white" id="about">
+        <div className="grid items-stretch lg:grid-cols-2">
+          {/* Image — Intore dancers */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-10% 0px' }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative isolate min-h-[440px] lg:min-h-[680px]"
+          >
+            <Image
+              src="/images/uploads/intore.jpg"
+              alt="Intore dancers performing Rwanda's traditional warrior dance"
+              fill
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover object-center"
+            />
+            {/* Blend the image into the dark panel */}
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/85 via-neutral-950/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-neutral-950" />
+            <div className="absolute left-6 top-6 inline-flex items-center gap-3 rounded-full bg-black/35 px-4 py-2 text-[0.62rem] uppercase tracking-[0.32em] text-white backdrop-blur lg:left-10 lg:top-10">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#F58220]" /> Intore · Living culture
+            </div>
+          </motion.div>
+
+          {/* Text panel */}
           <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: '-10% 0px' }}
             variants={stagger}
-            className="grid gap-14 lg:grid-cols-[0.32fr_1fr] lg:gap-20"
+            className="flex flex-col justify-center gap-7 px-6 py-16 lg:px-16 lg:py-24"
           >
-            <motion.div variants={reveal} className="flex items-start gap-5">
-              <span className="mt-3 inline-block h-px w-10 bg-[#F58220]" />
-              <span className="text-[0.65rem] uppercase tracking-[0.4em] text-neutral-500">
-                Index · 01
-                <br />
-                The studio
+            <motion.div variants={reveal} className="flex items-center gap-5">
+              <span className="inline-block h-px w-10 bg-[#F58220]" />
+              <span className="text-[0.65rem] uppercase tracking-[0.4em] text-white/55">
+                Index · 01 — Culture
               </span>
             </motion.div>
 
-            <motion.p
+            <motion.h2
               variants={reveal}
-              className="text-balance text-[clamp(1.85rem,3.8vw,3.4rem)] font-light leading-[1.18] tracking-[-0.025em] text-neutral-950"
+              className="text-balance text-[clamp(2.2rem,4.6vw,4rem)] font-light leading-[1.02] tracking-[-0.03em]"
             >
-              We design quiet, considered African journeys for travellers who measure a trip in
-              stories, not stops — built by guides, conservationists, and designers who happen to
-              call the wilderness <span className="font-bold text-[#F58220]">home</span>.
+              The dance of the
+              <br />
+              <span className="font-bold text-[#F58220]">chosen ones.</span>
+            </motion.h2>
+
+            <motion.p variants={reveal} className="max-w-xl text-lg leading-9 text-white/70">
+              Long before the safari, there was the song. The{' '}
+              <span className="text-white">Intore</span> — “the chosen ones” — are Rwanda’s
+              warrior-dancers: grass-mane headdresses, stamping rhythms, and thunderous{' '}
+              <span className="text-white">ingoma</span> drums that have carried the nation’s story
+              for centuries. Every Soul journey makes room for an evening with them — because you
+              cannot truly know a country until you have heard it keep time.
             </motion.p>
+
+            <motion.ul variants={reveal} className="grid grid-cols-2 gap-x-8 gap-y-5 pt-2 sm:max-w-md">
+              {[
+                { k: 'Origin', v: 'Royal courts of Rwanda' },
+                { k: 'Meaning', v: '“The chosen / the best”' },
+                { k: 'Heart', v: 'Drums · dance · poetry' },
+                { k: 'Where', v: 'Kigali · Nyanza · villages' },
+              ].map((row) => (
+                <li key={row.k} className="border-t border-white/12 pt-4">
+                  <p className="text-[0.6rem] uppercase tracking-[0.32em] text-white/45">{row.k}</p>
+                  <p className="mt-2 text-base text-white/90">{row.v}</p>
+                </li>
+              ))}
+            </motion.ul>
+
+            <motion.div variants={reveal} className="pt-3">
+              <Link
+                href="/visit-rwanda"
+                className="group inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:border-[#F58220] hover:text-[#F58220]"
+              >
+                Experience Rwandan culture
+                <span className="transition group-hover:translate-x-1">→</span>
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -342,7 +402,7 @@ export default function HomeView({
       {/* ═════════════════════════════════════════════════════════
           FEATURED EXPEDITION — Gorilla editorial spread
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative bg-neutral-50/70 px-6 py-20 lg:px-10 lg:py-32">
+      <section className="relative bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1280px]">
           <motion.div
             initial="hidden"
@@ -350,7 +410,7 @@ export default function HomeView({
             viewport={{ once: true, margin: '-10% 0px' }}
             variants={stagger}
           >
-            <motion.div variants={reveal} className="mb-14 flex items-center justify-between">
+            <motion.div variants={reveal} className="mb-10 flex items-center justify-between">
               <div className="flex items-center gap-5">
                 <span className="text-[0.65rem] uppercase tracking-[0.4em] text-neutral-500">
                   Featured · 01 / 04
@@ -368,7 +428,7 @@ export default function HomeView({
               </Link>
             </motion.div>
 
-            <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+            <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
               <motion.div variants={reveal} className="relative isolate aspect-[4/5] overflow-hidden rounded-sm">
                 <Image
                   src={GORILLA_DETAIL}
@@ -436,9 +496,9 @@ export default function HomeView({
       {/* ═════════════════════════════════════════════════════════
           EXPEDITIONS LIST — Editorial numbered list (not a grid)
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-20 lg:px-10 lg:py-32">
+      <section className="px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1180px]">
-          <div className="mb-16 flex items-end justify-between gap-8">
+          <div className="mb-10 flex items-end justify-between gap-8">
             <div className="flex items-start gap-5">
               <span className="mt-3 inline-block h-px w-10 bg-[#F58220]" />
               <h2 className="text-balance text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.04] tracking-[-0.03em] text-neutral-950">
@@ -505,7 +565,7 @@ export default function HomeView({
           STUDIO PHILOSOPHY — only renders when principles exist in admin
          ═════════════════════════════════════════════════════════ */}
       {principles.length > 0 && (
-        <section className="bg-neutral-950 px-6 py-20 text-white lg:px-10 lg:py-32">
+        <section className="bg-neutral-950 px-6 py-16 text-white lg:px-10 lg:py-24">
           <div className="mx-auto max-w-[1280px]">
             <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
               <div className="lg:sticky lg:top-32 lg:self-start">
@@ -557,9 +617,9 @@ export default function HomeView({
       {/* ═════════════════════════════════════════════════════════
           DESTINATION SPOTLIGHT — Rwanda
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-20 lg:px-10 lg:py-32">
+      <section className="px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1280px]">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <motion.div
               initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -676,7 +736,7 @@ export default function HomeView({
           GUEST STORY — only renders when a featured testimonial exists
          ═════════════════════════════════════════════════════════ */}
       {featuredTestimonial && (
-        <section className="bg-neutral-50/70 px-6 py-20 lg:px-10 lg:py-32">
+        <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
           <div className="mx-auto max-w-[1280px]">
             <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
               {featuredTestimonial.image && (
@@ -772,9 +832,9 @@ export default function HomeView({
           JOURNAL — only renders when journal posts exist
          ═════════════════════════════════════════════════════════ */}
       {journal.length > 0 && (
-        <section className="px-6 py-20 lg:px-10 lg:py-32" id="journal">
+        <section className="px-6 py-16 lg:px-10 lg:py-24" id="journal">
           <div className="mx-auto max-w-[1280px]">
-            <div className="mb-16 flex items-end justify-between gap-8">
+            <div className="mb-10 flex items-end justify-between gap-8">
               <div className="flex items-start gap-5">
                 <span className="mt-3 inline-block h-px w-10 bg-[#F58220]" />
                 <h2 className="text-balance text-[clamp(2rem,4.4vw,3.6rem)] font-bold leading-[1.04] tracking-[-0.03em] text-neutral-950">
@@ -827,7 +887,7 @@ export default function HomeView({
           PARTNERS — only renders when partners exist in admin
          ═════════════════════════════════════════════════════════ */}
       {partners.length > 0 && (
-      <section className="border-y border-neutral-200/80 bg-neutral-50/60 py-20 lg:py-28">
+      <section className="border-y border-neutral-200/80 bg-neutral-50/60 py-16 lg:py-24">
         <div className="mx-auto mb-12 max-w-[1280px] px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -902,53 +962,83 @@ export default function HomeView({
       )}
 
       {/* ═════════════════════════════════════════════════════════
-          FINAL CTA — Quiet, full-bleed
+          FINAL CTA — Cinematic full-bleed close
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative isolate overflow-hidden bg-neutral-950 px-6 py-20 text-white lg:px-10 lg:py-32">
-        <div className="glow-orb left-[-12rem] top-1/2 -translate-y-1/2 opacity-50" aria-hidden />
-        <div className="glow-orb right-[-12rem] top-1/4 opacity-30" aria-hidden />
+      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[720px]">
+        {/* Background image */}
+        <motion.div
+          initial={{ scale: 1.08 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 -z-10"
+        >
+          <Image
+            src={RWANDA_FOREST}
+            alt="Mist over the forested hills of Rwanda at dusk"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/65 to-neutral-950/30" />
+        </motion.div>
 
-        <div className="relative mx-auto max-w-[1180px]">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-15% 0px' }}
-            variants={stagger}
-            className="grid gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-end"
-          >
-            <div className="space-y-8">
-              <motion.p variants={reveal} className="text-[0.65rem] uppercase tracking-[0.4em] text-[#F58220]">
-                Begin
-              </motion.p>
-              <motion.h2
-                variants={reveal}
-                className="text-balance text-[clamp(2.4rem,5.2vw,4.6rem)] font-light leading-[1.02] tracking-[-0.035em]"
-              >
-                <span className="font-light">When you’re ready, we’ll design the journey of a lifetime —</span>
-                <br />
-                <span className="font-bold text-[#F58220]">one quiet conversation at a time.</span>
-              </motion.h2>
-            </div>
+        <div className="relative w-full px-6 pb-16 pt-28 lg:px-10 lg:pb-24 lg:pt-40">
+          <div className="mx-auto max-w-[1280px]">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-15% 0px' }}
+              variants={stagger}
+              className="grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-end"
+            >
+              <div className="space-y-7">
+                <motion.p variants={reveal} className="flex items-center gap-4 text-[0.65rem] uppercase tracking-[0.4em] text-[#F58220]">
+                  <span className="inline-block h-px w-10 bg-[#F58220]" />
+                  Begin your journey
+                </motion.p>
+                <motion.h2
+                  variants={reveal}
+                  className="text-balance text-[clamp(2.4rem,5.2vw,4.6rem)] font-light leading-[1.02] tracking-[-0.035em]"
+                >
+                  <span className="font-light">When you’re ready, we’ll design the journey of a lifetime —</span>{' '}
+                  <span className="font-bold text-[#F58220]">one quiet conversation at a time.</span>
+                </motion.h2>
 
-            <motion.div variants={reveal} className="flex flex-col gap-4 lg:items-end">
-              <Link
-                href="/contact"
-                className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#F58220] px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-white hover:text-neutral-950"
-              >
-                Inquire Now
-                <span className="transition group-hover:translate-x-1">→</span>
-              </Link>
-              <Link
-                href="/destinations"
-                className="group inline-flex w-fit items-center gap-3 text-[0.72rem] uppercase tracking-[0.32em] text-white/75 transition hover:text-[#F58220]"
-              >
-                <span className="relative">
+                <motion.div
+                  variants={reveal}
+                  className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2 text-[0.65rem] uppercase tracking-[0.32em] text-white/65"
+                >
+                  <a href="tel:+250783140000" className="transition hover:text-white">
+                    +250 783 140 000
+                  </a>
+                  <span className="hidden h-px w-8 bg-white/25 sm:block" aria-hidden />
+                  <a href="mailto:info@soulexpeditionsafrica.com" className="transition hover:text-white">
+                    info@soulexpeditionsafrica.com
+                  </a>
+                  <span className="hidden h-px w-8 bg-white/25 sm:block" aria-hidden />
+                  <span>Kigali · Rwanda</span>
+                </motion.div>
+              </div>
+
+              <motion.div variants={reveal} className="flex flex-col gap-4 lg:items-end">
+                <Link
+                  href="/contact"
+                  className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#F58220] px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-white hover:text-neutral-950"
+                >
+                  Inquire Now
+                  <span className="transition group-hover:translate-x-1">→</span>
+                </Link>
+                <Link
+                  href="/destinations"
+                  className="group inline-flex w-fit items-center gap-3 rounded-full border border-white/25 px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white/85 transition hover:border-[#F58220] hover:text-[#F58220]"
+                >
                   Browse destinations
-                  <span className="absolute -bottom-1 left-0 h-px w-full bg-white/30 transition group-hover:bg-[#F58220]" />
-                </span>
-              </Link>
+                  <span className="transition group-hover:translate-x-1">→</span>
+                </Link>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </main>

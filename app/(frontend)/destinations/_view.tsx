@@ -15,6 +15,10 @@ const stagger = {
   show: { transition: { staggerChildren: 0.1 } },
 };
 
+/* Fallback hero image used only when no destination has a hero set. */
+const FALLBACK_HERO =
+  'https://images.unsplash.com/photo-1547970810-dc1eac37d174?auto=format&fit=crop&w=2400&q=85';
+
 export default function DestinationsView({
   destinations,
 }: {
@@ -43,56 +47,64 @@ export default function DestinationsView({
     { value: '2018', label: 'Founded · Kigali' },
   ];
 
+  const heroImage =
+    featured?.hero || destinations.find((d) => d.hero || d.image)?.hero || FALLBACK_HERO;
+
   return (
     <main className="bg-white">
-      {/* ═════════════ HEADER ═════════════ */}
-      <section className="px-6 pt-32 pb-16 lg:px-10 lg:pt-40 lg:pb-20">
-        <div className="mx-auto max-w-[1280px]">
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="show"
-            className="grid gap-14 lg:grid-cols-[1fr_0.9fr] lg:items-end lg:gap-24"
-          >
-            <div className="space-y-8">
-              <motion.div variants={reveal} className="flex items-center gap-5">
-                <span className="h-px w-12 bg-[#F58220]" />
-                <span className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-neutral-500">
-                  Destinations · Index
-                </span>
-              </motion.div>
-              <motion.h1
-                variants={reveal}
-                className="text-balance text-[clamp(3rem,8vw,7rem)] leading-[0.94] tracking-[-0.045em] text-neutral-950"
-              >
-                <span className="block font-light">Six countries.</span>
-                <span className="block font-bold text-[#F58220]">One way to travel.</span>
-              </motion.h1>
-            </div>
+      {/* ═════════════ HERO ═════════════ */}
+      <section className="relative isolate flex min-h-[72svh] flex-col justify-end overflow-hidden text-white">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src={heroImage}
+            alt="Across the wild heart of East Africa"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="hero-overlay" />
+        </div>
 
-            <motion.p variants={reveal} className="max-w-lg text-lg leading-9 text-neutral-600">
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-14 pt-36 lg:px-10 lg:pb-16">
+          <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-4xl">
+            <motion.div variants={reveal} className="mb-8 flex items-center gap-3 text-[0.66rem] font-medium uppercase tracking-[0.4em] text-white/85">
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F58220] opacity-50" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#F58220]" />
+              </span>
+              <span>Destinations · Index</span>
+            </motion.div>
+
+            <motion.h1
+              variants={reveal}
+              className="text-balance text-[clamp(3rem,8vw,7rem)] leading-[0.94] tracking-[-0.045em]"
+            >
+              <span className="block font-light">Six countries.</span>
+              <span className="block font-bold text-[#F58220]">One way to travel.</span>
+            </motion.h1>
+
+            <motion.p variants={reveal} className="mt-9 max-w-xl text-balance text-lg leading-9 text-white/85">
               We work where we know — deeply. These countries are home to our guides, designers, and
-              host communities. Every itinerary moves between them at the pace of the landscape,
-              not the calendar.
+              host communities. Every itinerary moves at the pace of the landscape, not the calendar.
             </motion.p>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Stat ribbon */}
+      {/* ═════════════ STAT RIBBON ═════════════ */}
+      <section className="border-b border-neutral-200/80 bg-white">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
           <motion.ul
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 0.9, ease: 'easeOut' }}
-            className="mt-20 grid grid-cols-2 overflow-hidden rounded-sm border border-neutral-200/80 sm:grid-cols-4"
+            className="hairline-grid grid grid-cols-2 sm:grid-cols-4"
           >
-            {heroStats.map((s, i) => (
-              <li
-                key={s.label}
-                className={`px-6 py-9 ${i > 0 ? 'sm:border-l border-neutral-200/80' : ''} ${
-                  i >= 2 ? 'border-t sm:border-t-0' : ''
-                } ${i === 1 ? 'border-l border-neutral-200/80' : ''}`}
-              >
-                <p className="text-4xl font-light tracking-tight text-neutral-950 sm:text-5xl">
+            {heroStats.map((s) => (
+              <li key={s.label} className="group px-6 py-9 text-center sm:py-10">
+                <p className="text-4xl font-light tracking-tight text-neutral-950 transition duration-300 group-hover:text-[#F58220] sm:text-5xl">
                   {s.value}
                 </p>
                 <p className="mt-3 text-[0.62rem] font-medium uppercase tracking-[0.35em] text-neutral-500">
@@ -106,7 +118,7 @@ export default function DestinationsView({
 
       {/* ═════════════ EAST AFRICA — Region 01 ═════════════ */}
       {featured && (
-        <section className="px-6 py-24 lg:px-10 lg:py-32">
+        <section className="px-6 py-16 lg:px-10 lg:py-24">
           <div className="mx-auto max-w-[1280px] space-y-12">
             <motion.header
               initial={{ opacity: 0, y: 18 }}
@@ -206,7 +218,7 @@ export default function DestinationsView({
 
       {/* ═════════════ BEYOND EAST AFRICA — Region 02 ═════════════ */}
       {elsewhere.length > 0 && (
-        <section className="bg-neutral-50/70 px-6 py-24 lg:px-10 lg:py-32">
+        <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
           <div className="mx-auto max-w-[1280px] space-y-12">
             <motion.header
               initial={{ opacity: 0, y: 18 }}
@@ -241,14 +253,14 @@ export default function DestinationsView({
       )}
 
       {/* ═════════════ INDEX LIST ═════════════ */}
-      <section className="px-6 py-24 lg:px-10 lg:py-32">
+      <section className="px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1180px]">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 0.85, ease: 'easeOut' }}
-            className="mb-14 flex items-end justify-between gap-6"
+            className="mb-10 flex items-end justify-between gap-6"
           >
             <div className="flex items-start gap-5">
               <span className="mt-3 inline-block h-px w-10 bg-[#F58220]" />
@@ -308,49 +320,66 @@ export default function DestinationsView({
         </div>
       </section>
 
-      {/* ═════════════ CTA ═════════════ */}
-      <section className="px-6 pb-24 lg:px-10">
-        <div className="relative isolate mx-auto max-w-[1280px] overflow-hidden rounded-sm bg-neutral-950 px-10 py-20 text-white shadow-deep sm:px-16">
-          <div className="glow-orb -left-32 top-1/2 -translate-y-1/2 opacity-40" aria-hidden />
-          <div className="glow-orb -right-32 top-0 opacity-25" aria-hidden />
+      {/* ═════════════ CTA — cinematic full-bleed ═════════════ */}
+      <section className="relative isolate flex min-h-[560px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[620px]">
+        <motion.div
+          initial={{ scale: 1.08 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 -z-10"
+        >
+          <Image
+            src={heroImage}
+            alt="The wild heart of East Africa"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/70 to-neutral-950/35" />
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-15% 0px' }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
-            className="relative grid gap-10 lg:grid-cols-[1.2fr_0.9fr] lg:items-end"
-          >
-            <div className="space-y-7">
-              <p className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]">
-                Begin
-              </p>
-              <h2 className="text-balance text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.02] tracking-[-0.035em]">
-                <span className="font-light">Pick a country.</span>
-                <br />
-                <span className="font-bold text-[#F58220]">We’ll design the rest.</span>
-              </h2>
-            </div>
+        <div className="relative w-full px-6 pb-16 pt-28 lg:px-10 lg:pb-20 lg:pt-36">
+          <div className="mx-auto max-w-[1280px]">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-15% 0px' }}
+              variants={stagger}
+              className="grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-end"
+            >
+              <div className="space-y-7">
+                <motion.p variants={reveal} className="flex items-center gap-4 text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]">
+                  <span className="inline-block h-px w-10 bg-[#F58220]" />
+                  Begin your journey
+                </motion.p>
+                <motion.h2
+                  variants={reveal}
+                  className="text-balance text-[clamp(2.4rem,5.2vw,4.6rem)] font-light leading-[1.02] tracking-[-0.035em]"
+                >
+                  <span className="font-light">Pick a country.</span>{' '}
+                  <span className="font-bold text-[#F58220]">We’ll design the rest.</span>
+                </motion.h2>
+              </div>
 
-            <div className="flex flex-col gap-4 lg:items-end">
-              <Link
-                href="/contact"
-                className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#F58220] px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-white hover:text-neutral-950"
-              >
-                Inquire Now
-                <span className="transition group-hover:translate-x-1">→</span>
-              </Link>
-              <Link
-                href="/visit-rwanda"
-                className="group inline-flex w-fit items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white/75 transition hover:text-[#F58220]"
-              >
-                <span className="relative pb-1">
+              <motion.div variants={reveal} className="flex flex-col gap-4 lg:items-end">
+                <Link
+                  href="/contact"
+                  className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#F58220] px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-white hover:text-neutral-950"
+                >
+                  Inquire Now
+                  <span className="transition group-hover:translate-x-1">→</span>
+                </Link>
+                <Link
+                  href="/visit-rwanda"
+                  className="group inline-flex w-fit items-center gap-3 rounded-full border border-white/25 px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white/85 transition hover:border-[#F58220] hover:text-[#F58220]"
+                >
                   Visit Rwanda
-                  <span className="absolute -bottom-0 left-0 h-px w-full bg-white/30 transition group-hover:bg-[#F58220]" />
-                </span>
-              </Link>
-            </div>
-          </motion.div>
+                  <span className="transition group-hover:translate-x-1">→</span>
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </main>

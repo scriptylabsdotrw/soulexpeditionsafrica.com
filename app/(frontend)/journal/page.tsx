@@ -13,6 +13,10 @@ const reveal = {
 };
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
 
+/* Editorial hero / CTA backdrop — field-writing mood. */
+const JOURNAL_HERO =
+  'https://images.unsplash.com/photo-1504432842672-1a79f78e4084?auto=format&fit=crop&w=2400&q=85';
+
 type Filter = 'All' | JournalCategory;
 
 export default function JournalPage() {
@@ -27,58 +31,63 @@ export default function JournalPage() {
 
   return (
     <main className="bg-white">
-      {/* ═════════════ HEADER ═════════════ */}
-      <section className="px-6 pt-32 pb-12 lg:px-10 lg:pt-40 lg:pb-16">
-        <div className="mx-auto max-w-[1280px]">
-          <motion.div
-            initial="hidden"
-            animate="show"
-            variants={stagger}
-            className="grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-end lg:gap-24"
-          >
-            <div className="space-y-7">
-              <motion.div variants={reveal} className="flex items-center gap-5">
-                <span className="h-px w-12 bg-[#F58220]" />
-                <span className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-neutral-500">
-                  Journal · Field writing
-                </span>
-              </motion.div>
-              <motion.h1
-                variants={reveal}
-                className="text-balance text-[clamp(3rem,8vw,7rem)] leading-[0.94] tracking-[-0.045em] text-neutral-950"
-              >
-                <span className="block font-light">Long reads</span>
-                <span className="block font-bold text-[#F58220]">from the field.</span>
-              </motion.h1>
-            </div>
-            <motion.p variants={reveal} className="max-w-lg text-lg leading-9 text-neutral-600">
+      {/* ═════════════ HERO ═════════════ */}
+      <section className="relative isolate flex min-h-[68svh] flex-col justify-end overflow-hidden text-white">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src={JOURNAL_HERO}
+            alt="A guide writing field notes in East Africa"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="hero-overlay" />
+        </div>
+
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-14 pt-36 lg:px-10 lg:pb-16">
+          <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-4xl">
+            <motion.div variants={reveal} className="mb-8 flex items-center gap-3 text-[0.66rem] font-medium uppercase tracking-[0.4em] text-white/85">
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F58220] opacity-50" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#F58220]" />
+              </span>
+              <span>Journal · Field writing</span>
+            </motion.div>
+            <motion.h1
+              variants={reveal}
+              className="text-balance text-[clamp(3rem,8vw,7rem)] leading-[0.94] tracking-[-0.045em]"
+            >
+              <span className="block font-light">Long reads</span>
+              <span className="block font-bold text-[#F58220]">from the field.</span>
+            </motion.h1>
+            <motion.p variants={reveal} className="mt-9 max-w-xl text-balance text-lg leading-9 text-white/85">
               Slow, hosted writing from our guides, conservationists, and design team. No
-              clickbait, no listicles — the long form of how we actually work, what we’ve learnt,
-              and what the people we travel with notice in the bush.
+              clickbait, no listicles — the long form of how we actually work, and what the people
+              we travel with notice in the bush.
             </motion.p>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Stats ribbon */}
+      {/* ═════════════ STAT RIBBON ═════════════ */}
+      <section className="border-b border-neutral-200/80 bg-white">
+        <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
           <motion.ul
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 0.9, ease: 'easeOut' }}
-            className="mt-20 grid grid-cols-2 overflow-hidden rounded-sm border border-neutral-200/80 sm:grid-cols-4"
+            className="hairline-grid grid grid-cols-2 sm:grid-cols-4"
           >
             {[
               { value: String(articles.length).padStart(2, '0'), label: 'Long reads' },
               { value: String(CATEGORIES.length), label: 'Categories' },
               { value: '08', label: 'Field contributors' },
               { value: 'Monthly', label: 'Cadence' },
-            ].map((s, i) => (
-              <li
-                key={s.label}
-                className={`px-6 py-9 ${i > 0 ? 'sm:border-l border-neutral-200/80' : ''} ${
-                  i >= 2 ? 'border-t sm:border-t-0' : ''
-                } ${i === 1 ? 'border-l border-neutral-200/80' : ''}`}
-              >
-                <p className="text-4xl font-light tracking-tight text-neutral-950 sm:text-5xl">
+            ].map((s) => (
+              <li key={s.label} className="group px-6 py-9 text-center sm:py-10">
+                <p className="text-4xl font-light tracking-tight text-neutral-950 transition duration-300 group-hover:text-[#F58220] sm:text-5xl">
                   {s.value}
                 </p>
                 <p className="mt-3 text-[0.62rem] font-medium uppercase tracking-[0.35em] text-neutral-500">
@@ -182,7 +191,7 @@ export default function JournalPage() {
       </section>
 
       {/* ═════════════ ARTICLES GRID ═════════════ */}
-      <section className="px-6 py-20 lg:px-10 lg:py-28">
+      <section className="px-6 py-16 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[1280px]">
           <AnimatePresence mode="wait">
             {rest.length > 0 ? (
@@ -261,18 +270,32 @@ export default function JournalPage() {
         </div>
       </section>
 
-      {/* ═════════════ NEWSLETTER CTA ═════════════ */}
-      <section className="px-6 pb-24 lg:px-10">
-        <div className="relative isolate mx-auto max-w-[1280px] overflow-hidden rounded-sm bg-neutral-950 px-10 py-20 text-white shadow-deep sm:px-16">
-          <div className="glow-orb -left-32 top-1/2 -translate-y-1/2 opacity-35" aria-hidden />
-          <div className="glow-orb -right-32 top-0 opacity-25" aria-hidden />
+      {/* ═════════════ NEWSLETTER CTA — cinematic full-bleed ═════════════ */}
+      <section className="relative isolate flex min-h-[560px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[600px]">
+        <motion.div
+          initial={{ scale: 1.08 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 -z-10"
+        >
+          <Image
+            src={JOURNAL_HERO}
+            alt="Field notes at dusk"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/75 to-neutral-950/40" />
+        </motion.div>
 
+        <div className="relative w-full px-6 pb-16 pt-28 lg:px-10 lg:pb-20 lg:pt-36">
           <motion.div
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15% 0px' }}
             transition={{ duration: 0.9, ease: 'easeOut' }}
-            className="relative grid gap-10 lg:grid-cols-[1.2fr_0.9fr] lg:items-end"
+            className="relative mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1.2fr_0.9fr] lg:items-end"
           >
             <div className="space-y-7">
               <p className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]">

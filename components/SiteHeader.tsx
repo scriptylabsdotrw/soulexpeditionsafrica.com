@@ -12,12 +12,9 @@ type NavItem =
   | { kind: 'mega'; label: string };
 
 const nav: NavItem[] = [
-  { kind: 'link', label: 'About', href: '/about' },
+  { kind: 'link', label: 'About Us', href: '/about' },
   { kind: 'mega', label: 'Tours' },
-  { kind: 'link', label: 'Destinations', href: '/destinations' },
-  { kind: 'link', label: 'Visit Rwanda', href: '/visit-rwanda' },
   { kind: 'link', label: 'Journal', href: '/journal' },
-  { kind: 'link', label: 'Contact', href: '/contact' },
 ];
 
 const toursFeatured: {
@@ -41,29 +38,35 @@ const toursFeatured: {
   },
 ];
 
+const toursGroups: { title: string; items: SubItem[] } = {
+  title: 'Groups',
+  items: [
+    { label: 'Church & Mission', href: '/tours/church-mission' },
+    { label: 'Schools', href: '/tours/schools' },
+    { label: 'Leadership', href: '/tours/leadership' },
+    { label: 'Immersion Programs', href: '/tours/immersion' },
+    { label: 'Corporate', href: '/tours/corporate' },
+  ],
+};
+
+const toursSpecialInterest: { title: string; items: SubItem[] } = {
+  title: 'Special Interest',
+  items: [
+    { label: 'Philanthropy', href: '/tours/philanthropy' },
+    { label: 'Arts & Design', href: '/tours/arts-design' },
+    { label: 'Honeymoon', href: '/tours/honeymoon' },
+    { label: 'History', href: '/tours/history' },
+    { label: 'Active', href: '/tours/active' },
+    { label: 'Volunteering', href: '/tours/volunteering' },
+    { label: 'LGBTQ+', href: '/tours/lgbtq' },
+  ],
+};
+
+// Groups now occupies the slot where Special Interest used to be (column 3),
+// and Special Interest moves into the slot where Groups used to be (column 4).
 const toursLists: { title: string; items: SubItem[] }[] = [
-  {
-    title: 'Special Interest',
-    items: [
-      { label: 'Philanthropy', href: '/tours/philanthropy' },
-      { label: 'Arts & Design', href: '/tours/arts-design' },
-      { label: 'Honeymoon', href: '/tours/honeymoon' },
-      { label: 'History', href: '/tours/history' },
-      { label: 'Active', href: '/tours/active' },
-      { label: 'Volunteering', href: '/tours/volunteering' },
-      { label: 'LGBTQ+', href: '/tours/lgbtq' },
-    ],
-  },
-  {
-    title: 'Groups',
-    items: [
-      { label: 'Church & Mission', href: '/tours/church-mission' },
-      { label: 'Schools', href: '/tours/schools' },
-      { label: 'Leadership', href: '/tours/leadership' },
-      { label: 'Immersion Programs', href: '/tours/immersion' },
-      { label: 'Corporate', href: '/tours/corporate' },
-    ],
-  },
+  toursGroups,
+  toursSpecialInterest,
 ];
 
 export default function SiteHeader() {
@@ -130,13 +133,13 @@ export default function SiteHeader() {
               width={480}
               height={144}
               priority
-              className="h-16 w-auto object-contain sm:h-20 xl:h-24"
+              className="h-20 w-auto object-contain sm:h-24 xl:h-28"
             />
           </Link>
 
           <nav
             aria-label="Primary"
-            className="hidden items-center gap-5 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-slate-600 lg:flex xl:gap-6 xl:tracking-[0.26em] 2xl:gap-8 2xl:tracking-[0.32em]"
+            className="hidden items-center gap-7 text-[0.92rem] font-semibold uppercase tracking-[0.14em] text-slate-700 lg:flex xl:gap-9 xl:text-[1rem] xl:tracking-[0.16em] 2xl:gap-11"
           >
             {nav.map((item) =>
               item.kind === 'mega' ? (
@@ -159,7 +162,7 @@ export default function SiteHeader() {
                     {item.label}
                     <span
                       aria-hidden="true"
-                      className={`text-[0.5rem] transition ${
+                      className={`text-[0.7rem] transition ${
                         megaOpen ? 'rotate-180' : ''
                       }`}
                     >
@@ -182,17 +185,17 @@ export default function SiteHeader() {
           <div className="flex items-center gap-3">
             <Link
               href="/contact"
-              className="hidden items-center gap-2 rounded-full bg-[#F58220] px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-white shadow-glow transition hover:bg-[#ff9d2e] sm:inline-flex"
+              className="hidden items-center gap-2 rounded-full bg-[#F58220] px-7 py-3 text-[0.86rem] font-semibold uppercase tracking-[0.18em] text-white shadow-glow transition hover:bg-[#ff9d2e] sm:inline-flex"
             >
-              Inquire Now
+              Contact Us
               <span aria-hidden="true">→</span>
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1 rounded-full bg-[#F58220] px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white shadow-glow transition hover:bg-[#ff9d2e] sm:hidden"
-              aria-label="Inquire now"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#F58220] px-5 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-white shadow-glow transition hover:bg-[#ff9d2e] sm:hidden"
+              aria-label="Contact us"
             >
-              Inquire
+              Contact
               <span aria-hidden="true">→</span>
             </Link>
 
@@ -251,13 +254,13 @@ export default function SiteHeader() {
                 onClick={() => setMegaOpen(false)}
                 className="group flex flex-col gap-4 rounded-2xl border border-transparent p-5 transition hover:border-slate-200 hover:bg-slate-50"
               >
-                {col.eyebrow && (
-                  <span className="text-[0.6rem] font-semibold uppercase tracking-[0.32em] text-[#F58220]">
-                    {col.eyebrow}
-                  </span>
-                )}
-                <span className="text-2xl font-light tracking-tight text-slate-950">
+                <span className="flex flex-wrap items-baseline gap-x-2.5 text-2xl font-light tracking-tight text-slate-950">
                   {col.title}
+                  {col.eyebrow && (
+                    <span className="text-sm font-semibold uppercase tracking-[0.18em] text-[#F58220]">
+                      ({col.eyebrow})
+                    </span>
+                  )}
                 </span>
                 <span className="text-sm leading-relaxed text-slate-600">
                   {col.blurb}
@@ -381,13 +384,13 @@ export default function SiteHeader() {
                                 onClick={() => setOpen(false)}
                                 className="block"
                               >
-                                {col.eyebrow && (
-                                  <span className="block text-[0.55rem] font-semibold uppercase tracking-[0.32em] text-[#F58220]">
-                                    {col.eyebrow}
-                                  </span>
-                                )}
-                                <span className="text-lg font-light tracking-tight text-neutral-950">
+                                <span className="flex flex-wrap items-baseline gap-x-2 text-lg font-light tracking-tight text-neutral-950">
                                   {col.title}
+                                  {col.eyebrow && (
+                                    <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[#F58220]">
+                                      ({col.eyebrow})
+                                    </span>
+                                  )}
                                 </span>
                               </Link>
                             ))}
@@ -452,7 +455,7 @@ export default function SiteHeader() {
                 onClick={() => setOpen(false)}
                 className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#F58220] px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white shadow-glow transition hover:bg-[#ff9d2e]"
               >
-                Inquire Now
+                Contact Us
                 <span className="transition group-hover:translate-x-1">→</span>
               </Link>
               <div className="grid grid-cols-2 gap-3 text-[0.62rem] font-medium uppercase tracking-[0.32em] text-neutral-500">

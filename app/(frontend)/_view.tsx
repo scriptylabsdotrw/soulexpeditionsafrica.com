@@ -83,7 +83,7 @@ const expeditions = [
     title: 'Indian Ocean Escape',
     location: 'Zanzibar · Lamu',
     duration: '8 days',
-    image: 'https://images.unsplash.com/photo-1589552416260-89fd1b39e9b8?auto=format&fit=crop&w=1600&q=85',
+    image: 'https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=1600&q=85',
     href: '/destinations/zanzibar',
   },
 ];
@@ -145,32 +145,6 @@ export default function HomeView({
 
   return (
     <main className="overflow-hidden bg-white">
-      {/* ═════════════════════════════════════════════════════════
-          VISIT RWANDA STRIP — prominent Rwanda CTA at the top
-         ═════════════════════════════════════════════════════════ */}
-      <Link
-        href="/visit-rwanda"
-        className="group block bg-[#F58220] text-white transition hover:bg-[#ff9d2e]"
-      >
-        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-center gap-x-4 gap-y-1 px-6 py-2.5 text-center text-[0.65rem] font-medium uppercase tracking-[0.32em] lg:px-10">
-          <span className="inline-flex items-center gap-2">
-            <span className="relative inline-flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
-            </span>
-            <span className="font-semibold tracking-[0.4em]">Visit Rwanda</span>
-          </span>
-          <span className="opacity-50">·</span>
-          <span className="font-light tracking-[0.28em]">
-            Land of a thousand hills
-          </span>
-          <span className="inline-flex items-center gap-2 font-semibold underline-offset-4 group-hover:underline">
-            Discover
-            <span aria-hidden="true" className="transition group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-      </Link>
-
       {/* ═════════════════════════════════════════════════════════
           HERO — Cleaner editorial composition, weight-driven type
          ═════════════════════════════════════════════════════════ */}

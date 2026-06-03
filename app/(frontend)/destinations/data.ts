@@ -123,10 +123,10 @@ const IMG = {
   culturalCommunity: u('photo-1523805009345-7448845a9e53', 0.65, 0.6),
   culturalDetail: u('photo-1523805009345-7448845a9e53', 0.3, 0.55),
   // Coast / water pool
-  coastDhow: u('photo-1589552416260-89fd1b39e9b8', 0.35),
-  coastWater: u('photo-1589552416260-89fd1b39e9b8', 0.7, 0.4),
-  coastBeach: u('photo-1589552416260-89fd1b39e9b8', 0.5, 0.65),
-  coastHorizon: u('photo-1589552416260-89fd1b39e9b8', 0.25),
+  coastDhow: u('photo-1505881502353-a1986add3762', 0.35),
+  coastWater: u('photo-1505881502353-a1986add3762', 0.7, 0.4),
+  coastBeach: u('photo-1505881502353-a1986add3762', 0.5, 0.65),
+  coastHorizon: u('photo-1505881502353-a1986add3762', 0.25),
   // Guide / portrait pool
   guidePortrait: u('photo-1504432842672-1a79f78e4084', 0.3),
   guideLandscape: u('photo-1504432842672-1a79f78e4084', 0.55, 0.55),

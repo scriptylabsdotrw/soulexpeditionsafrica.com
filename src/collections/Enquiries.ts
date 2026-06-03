@@ -16,6 +16,7 @@ export const Enquiries: CollectionConfig = {
   fields: [
     { name: 'name', type: 'text', required: true },
     { name: 'email', type: 'email', required: true },
+    { name: 'phone', type: 'text' },
     { name: 'travellers', type: 'text' },
     { name: 'dates', type: 'text' },
     { name: 'notes', type: 'textarea' },

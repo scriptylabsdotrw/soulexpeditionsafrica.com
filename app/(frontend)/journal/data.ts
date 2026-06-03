@@ -48,8 +48,8 @@ const IMG = {
   serengetiPlains: u('photo-1547970810-dc1eac37d174', 0.55),
   ngorongoroDawn: u('photo-1547970810-dc1eac37d174', 0.25, 0.35), // same photo, top focal
   culturalKigali: u('photo-1523805009345-7448845a9e53', 0.4),
-  coastDhow: u('photo-1589552416260-89fd1b39e9b8', 0.35),
-  coastWater: u('photo-1589552416260-89fd1b39e9b8', 0.7, 0.4), // same photo, lower focal
+  coastDhow: u('photo-1505881502353-a1986add3762', 0.35),
+  coastWater: u('photo-1505881502353-a1986add3762', 0.7, 0.4), // same photo, lower focal
   elephantHerd: u('photo-1516426122078-c23e76319801', 0.45),
   guidePortrait: u('photo-1504432842672-1a79f78e4084', 0.3),
 };

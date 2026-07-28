@@ -184,18 +184,31 @@ export default function SiteHeader() {
 
           <div className="flex items-center gap-3">
             <Link
+              href="/visit-rwanda"
+              aria-label="Visit Rwanda"
+              className="hidden shrink-0 items-center sm:inline-flex"
+            >
+              <Image
+                src="/logos/visit_rwanda-logo.png"
+                alt="Visit Rwanda"
+                width={120}
+                height={48}
+                className="h-9 w-auto object-contain lg:h-10"
+              />
+            </Link>
+            <Link
               href="/contact"
               className="hidden items-center gap-2 rounded-full bg-[#F58220] px-7 py-3 text-[0.86rem] font-semibold uppercase tracking-[0.18em] text-white shadow-glow transition hover:bg-[#ff9d2e] sm:inline-flex"
             >
-              Contact Us
+              Enquire Now
               <span aria-hidden="true">→</span>
             </Link>
             <Link
               href="/contact"
               className="inline-flex items-center gap-1.5 rounded-full bg-[#F58220] px-5 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-white shadow-glow transition hover:bg-[#ff9d2e] sm:hidden"
-              aria-label="Contact us"
+              aria-label="Enquire now"
             >
-              Contact
+              Enquire
               <span aria-hidden="true">→</span>
             </Link>
 
@@ -450,14 +463,30 @@ export default function SiteHeader() {
             </ul>
 
             <div className="mt-8 space-y-4">
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#F58220] px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white shadow-glow transition hover:bg-[#ff9d2e]"
-              >
-                Contact Us
-                <span className="transition group-hover:translate-x-1">→</span>
-              </Link>
+              <div className="flex items-center justify-between gap-4">
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="group inline-flex flex-1 items-center justify-center gap-3 rounded-full bg-[#F58220] px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white shadow-glow transition hover:bg-[#ff9d2e]"
+                >
+                  Enquire Now
+                  <span className="transition group-hover:translate-x-1">→</span>
+                </Link>
+                <Link
+                  href="/visit-rwanda"
+                  onClick={() => setOpen(false)}
+                  aria-label="Visit Rwanda"
+                  className="shrink-0"
+                >
+                  <Image
+                    src="/logos/visit_rwanda-logo.png"
+                    alt="Visit Rwanda"
+                    width={120}
+                    height={48}
+                    className="h-10 w-auto object-contain"
+                  />
+                </Link>
+              </div>
               <div className="grid grid-cols-2 gap-3 text-[0.62rem] font-medium uppercase tracking-[0.32em] text-neutral-500">
                 <a
                   href="tel:+250783140000"

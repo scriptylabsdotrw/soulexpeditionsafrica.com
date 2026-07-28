@@ -34,7 +34,7 @@ export default async function TourDetail(props: any) {
           A single-screen, conversion-focused hero: the essentials and an
           itinerary glance on the left, a "Book This Tour" card on the right.
           Full detail lives on a dedicated page reached via "View More". */}
-      <section className="relative isolate flex min-h-[calc(100svh-7rem)] items-center overflow-hidden">
+      <section className="relative isolate flex min-h-[calc(100svh-14rem)] items-center overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <Image src={tour.image} alt={tour.title} fill priority sizes="100vw" className="object-cover" />
           {/* Stronger cinematic wash for a premium, legible hero */}
@@ -131,7 +131,7 @@ export default async function TourDetail(props: any) {
 
       {/* ─────────── OTHER TOURS IN COUNTRY ─────────── */}
       {otherTours.length > 0 && (
-        <section className="bg-neutral-50/70 px-6 py-20 lg:px-10 lg:py-28">
+        <section className="bg-neutral-50/70 px-6 py-12 lg:px-10 lg:py-16">
           <div className="mx-auto max-w-[1280px] space-y-10">
             <div className="flex items-end justify-between gap-6">
               <div className="flex items-start gap-5">

@@ -40,7 +40,7 @@ export default function DestinationsView({
       </section>
 
       {/* ════════════ CTA ════════════ */}
-      <section className="bg-neutral-950 px-6 py-16 text-white lg:px-10 lg:py-20">
+      <section className="bg-neutral-950 px-6 py-10 text-white lg:px-10 lg:py-14">
         <div className="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
           <div className="space-y-4">
             <p className="flex items-center gap-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-[#F58220]">

@@ -22,7 +22,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Soul Expeditions Africa — Bespoke Safaris & Soulful African Journeys',
   description:
-    'Award-winning, privately designed safari, wildlife, and cultural expeditions across Rwanda, Tanzania, Kenya, Uganda, Botswana, and Zanzibar. Crafted by Africa, for the world.',
+    'Award-winning, privately designed safari, wildlife, and cultural expeditions across Rwanda, Tanzania, Kenya, Uganda, and Zanzibar. Crafted by Africa, for the world.',
   openGraph: {
     title: 'Soul Expeditions Africa — Crafting Soulful African Expeditions',
     description:

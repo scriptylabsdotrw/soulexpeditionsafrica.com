@@ -67,7 +67,7 @@ export default async function TourDetailsPage(props: any) {
       </section>
 
       {/* ─────────── OVERVIEW + HIGHLIGHTS ─────────── */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto grid max-w-[1280px] gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-20">
           <div className="space-y-8">
             <div className="flex items-start gap-5">

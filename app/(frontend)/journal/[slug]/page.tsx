@@ -49,7 +49,7 @@ export default async function ArticlePage(props: any) {
           <div className="hero-overlay" />
         </div>
 
-        <div className="mx-auto flex min-h-[78svh] max-w-[1280px] flex-col justify-end px-6 pb-20 pt-36 text-white lg:px-10">
+        <div className="mx-auto flex min-h-[58svh] max-w-[1280px] flex-col justify-end px-6 pb-14 pt-28 text-white lg:px-10">
           <Link
             href="/journal"
             className="self-start text-[0.7rem] font-medium uppercase tracking-[0.32em] text-white/70 transition hover:text-white"
@@ -85,7 +85,7 @@ export default async function ArticlePage(props: any) {
       </section>
 
       {/* ─────────── ARTICLE BODY ─────────── */}
-      <article className="px-6 py-24 lg:px-10 lg:py-32">
+      <article className="px-6 py-14 lg:px-10 lg:py-20">
         <div className="mx-auto grid max-w-[1180px] gap-16 lg:grid-cols-[0.22fr_1fr] lg:gap-20">
           {/* Sticky meta rail */}
           <aside className="lg:sticky lg:top-32 lg:self-start">
@@ -176,7 +176,7 @@ export default async function ArticlePage(props: any) {
 
       {/* ─────────── RELATED ─────────── */}
       {related.length > 0 && (
-        <section className="bg-neutral-50/70 px-6 py-24 lg:px-10 lg:py-32">
+        <section className="bg-neutral-50/70 px-6 py-14 lg:px-10 lg:py-20">
           <div className="mx-auto max-w-[1280px] space-y-12">
             <div className="flex items-end justify-between gap-6 border-b border-neutral-200 pb-6">
               <div className="flex items-start gap-5">

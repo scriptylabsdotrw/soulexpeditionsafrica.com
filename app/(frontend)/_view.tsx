@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import Lenis from 'lenis';
 import type {
   JournalPost,
@@ -37,8 +37,9 @@ const formatDate = (iso: string) => {
    ────────────────────────────────────────────────────────────── */
 const HERO_GORILLA =
   'https://images.unsplash.com/photo-1509897739002-791fa79aac9b?auto=format&fit=crop&w=2400&q=85';
-const GORILLA_DETAIL =
-  'https://images.unsplash.com/photo-1591824438708-ce405f36ba3d?auto=format&fit=crop&w=1600&q=85';
+/* Rotating home hero backdrops — used when no CMS override is set. */
+const HOME_HERO_IMAGES = ['/images/uploads/home_hero1.jpeg', '/images/uploads/homehero2.jpg'];
+const GORILLA_DETAIL = '/images/uploads/gorillaimage1.jpg';
 const GUIDE_PORTRAIT =
   'https://images.unsplash.com/photo-1504432842672-1a79f78e4084?auto=format&fit=crop&w=1600&q=85';
 const RWANDA_FOREST =
@@ -129,6 +130,16 @@ export default function HomeView({
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.4]);
 
+  /* Rotate between the default hero backdrops, unless an admin has set a fixed override. */
+  const [heroSlide, setHeroSlide] = useState(0);
+  useEffect(() => {
+    if (siteContent.homeHeroImage) return;
+    const id = setInterval(() => {
+      setHeroSlide((s) => (s + 1) % HOME_HERO_IMAGES.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, [siteContent.homeHeroImage]);
+
   useEffect(() => {
     let rafId: number;
     const lenis = new Lenis({ duration: 1.35, smoothWheel: true, lerp: 0.08 });
@@ -150,21 +161,43 @@ export default function HomeView({
          ═════════════════════════════════════════════════════════ */}
       <section
         ref={heroRef}
-        className="relative isolate flex h-[100svh] min-h-[760px] w-full flex-col overflow-hidden"
+        className="relative isolate flex h-[82svh] min-h-[600px] w-full flex-col overflow-hidden"
       >
         {/* Background image + parallax + Ken Burns */}
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0 -z-10">
           <div className="relative h-full w-full">
-            <div className="ken-burns h-full w-full">
-              <Image
-                src={siteContent.homeHeroImage || HERO_GORILLA}
-                alt="A silverback mountain gorilla beside a tree in Volcanoes National Park, Rwanda"
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover object-[center_40%]"
-              />
-            </div>
+            {siteContent.homeHeroImage ? (
+              <div className="ken-burns h-full w-full">
+                <Image
+                  src={siteContent.homeHeroImage}
+                  alt="A silverback mountain gorilla beside a tree in Volcanoes National Park, Rwanda"
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover object-[center_40%]"
+                />
+              </div>
+            ) : (
+              <AnimatePresence>
+                <motion.div
+                  key={HOME_HERO_IMAGES[heroSlide]}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.4, ease: 'easeInOut' }}
+                  className="ken-burns absolute inset-0"
+                >
+                  <Image
+                    src={HOME_HERO_IMAGES[heroSlide]}
+                    alt="A silverback mountain gorilla beside a tree in Volcanoes National Park, Rwanda"
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover object-[center_40%]"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            )}
             <div className="hero-overlay" />
           </div>
         </motion.div>
@@ -319,7 +352,7 @@ export default function HomeView({
             whileInView="show"
             viewport={{ once: true, margin: '-10% 0px' }}
             variants={stagger}
-            className="flex flex-col justify-center gap-7 px-6 py-16 lg:px-16 lg:py-24"
+            className="flex flex-col justify-center gap-7 px-6 py-10 lg:px-16 lg:py-16"
           >
             <motion.div variants={reveal} className="flex items-center gap-5">
               <span className="inline-block h-px w-10 bg-[#F58220]" />
@@ -376,7 +409,7 @@ export default function HomeView({
       {/* ═════════════════════════════════════════════════════════
           FEATURED EXPEDITION — Gorilla editorial spread
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
+      <section className="relative bg-neutral-50/70 px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1280px]">
           <motion.div
             initial="hidden"
@@ -470,7 +503,7 @@ export default function HomeView({
       {/* ═════════════════════════════════════════════════════════
           EXPEDITIONS LIST — Editorial numbered list (not a grid)
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1180px]">
           <div className="mb-10 flex items-end justify-between gap-8">
             <div className="flex items-start gap-5">
@@ -539,7 +572,7 @@ export default function HomeView({
           STUDIO PHILOSOPHY — only renders when principles exist in admin
          ═════════════════════════════════════════════════════════ */}
       {principles.length > 0 && (
-        <section className="bg-neutral-950 px-6 py-16 text-white lg:px-10 lg:py-24">
+        <section className="bg-neutral-950 px-6 py-10 text-white lg:px-10 lg:py-16">
           <div className="mx-auto max-w-[1280px]">
             <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
               <div className="lg:sticky lg:top-32 lg:self-start">
@@ -591,7 +624,7 @@ export default function HomeView({
       {/* ═════════════════════════════════════════════════════════
           DESTINATION SPOTLIGHT — Rwanda
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1280px]">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <motion.div
@@ -623,7 +656,7 @@ export default function HomeView({
               </div>
 
               {/* Intore culture */}
-              <div className="relative isolate aspect-[4/3] overflow-hidden rounded-sm sm:col-span-2 sm:aspect-auto">
+              <div className="relative isolate aspect-[4/3] overflow-hidden rounded-sm sm:col-span-2">
                 <Image
                   src={RWANDA_GALLERY.intore}
                   alt="Intore traditional Rwandan dancers"
@@ -638,7 +671,7 @@ export default function HomeView({
               </div>
 
               {/* Safari */}
-              <div className="relative isolate aspect-[4/3] overflow-hidden rounded-sm sm:col-span-2 sm:aspect-auto">
+              <div className="relative isolate aspect-[4/3] overflow-hidden rounded-sm sm:col-span-2">
                 <Image
                   src={RWANDA_GALLERY.safari}
                   alt="Akagera plains safari in Rwanda"
@@ -710,7 +743,7 @@ export default function HomeView({
           GUEST STORY — only renders when a featured testimonial exists
          ═════════════════════════════════════════════════════════ */}
       {featuredTestimonial && (
-        <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
+        <section className="bg-neutral-50/70 px-6 py-10 lg:px-10 lg:py-16">
           <div className="mx-auto max-w-[1280px]">
             <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
               {featuredTestimonial.image && (
@@ -769,7 +802,7 @@ export default function HomeView({
           PRESS — only renders when press features are added in admin
          ═════════════════════════════════════════════════════════ */}
       {pressFeatures.length > 0 && (
-        <section className="border-y border-neutral-200/80 bg-white px-6 py-16 lg:px-10">
+        <section className="border-y border-neutral-200/80 bg-white px-6 py-10 lg:px-10 lg:py-12">
           <div className="mx-auto max-w-[1280px]">
             <div className="flex flex-col items-start gap-10 lg:flex-row lg:items-center lg:gap-16">
               <p className="text-[0.62rem] uppercase tracking-[0.4em] text-neutral-500 lg:max-w-[10ch]">
@@ -806,7 +839,7 @@ export default function HomeView({
           JOURNAL — only renders when journal posts exist
          ═════════════════════════════════════════════════════════ */}
       {journal.length > 0 && (
-        <section className="px-6 py-16 lg:px-10 lg:py-24" id="journal">
+        <section className="px-6 py-10 lg:px-10 lg:py-16" id="journal">
           <div className="mx-auto max-w-[1280px]">
             <div className="mb-10 flex items-end justify-between gap-8">
               <div className="flex items-start gap-5">
@@ -861,7 +894,7 @@ export default function HomeView({
           PARTNERS — only renders when partners exist in admin
          ═════════════════════════════════════════════════════════ */}
       {partners.length > 0 && (
-      <section className="border-y border-neutral-200/80 bg-neutral-50/60 py-16 lg:py-24">
+      <section className="border-y border-neutral-200/80 bg-neutral-50/60 py-10 lg:py-16">
         <div className="mx-auto mb-12 max-w-[1280px] px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -938,7 +971,7 @@ export default function HomeView({
       {/* ═════════════════════════════════════════════════════════
           FINAL CTA — Cinematic full-bleed close
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[720px]">
+      <section className="relative isolate flex min-h-[440px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[520px]">
         {/* Background image */}
         <motion.div
           initial={{ scale: 1.08 }}

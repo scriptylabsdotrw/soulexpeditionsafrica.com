@@ -60,3 +60,4 @@ public/logos/*.docx
 public/logos/*.txt
 
 .vercel
+.env*

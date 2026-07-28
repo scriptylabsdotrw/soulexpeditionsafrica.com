@@ -11,13 +11,10 @@ type AboutViewProps = {
   milestones: Milestone[];
 };
 
-/* Hero + Kigali photo URLs (kept as fallbacks; can later be moved to Media). */
-const u = (id: string, fpY = 0.5, fpX = 0.5, w = 2000) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=85&crop=focalpoint&fp-x=${fpX}&fp-y=${fpY}`;
-
+/* Hero + Kigali photos (kept as fallbacks; can later be moved to Media). */
 const IMG = {
-  hero: u('photo-1551357141-f73a8402ceb3', 0.5, 0.5, 2400),
-  kigali: u('photo-1687986261123-b17f08f2796c', 0.5),
+  hero: '/images/uploads/ABOUTusHero.jpg',
+  kigali: '/images/uploads/Kigali_Convention_center,_Rwanda.jpg',
 };
 
 /* ──────────────────────────────────────────────────────────────
@@ -137,7 +134,7 @@ export default function AboutView({
       {/* ═════════════════════════════════════════════════════════
           HERO
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative isolate flex min-h-[78svh] flex-col justify-end overflow-hidden">
+      <section className="relative isolate flex min-h-[58svh] flex-col justify-end overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <Image
             src={siteContent.aboutHeroImage || IMG.hero}
@@ -236,7 +233,7 @@ export default function AboutView({
       {/* ═════════════════════════════════════════════════════════
           MANIFESTO — oversized statement of intent
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24" id="manifesto">
+      <section className="px-6 py-10 lg:px-10 lg:py-16" id="manifesto">
         <div className="mx-auto max-w-[1080px]">
           <motion.div
             initial="hidden"
@@ -277,7 +274,7 @@ export default function AboutView({
       {/* ═════════════════════════════════════════════════════════
           OUR STORY — narrative origin
          ═════════════════════════════════════════════════════════ */}
-      <section className="border-t border-neutral-200/70 px-6 py-16 lg:px-10 lg:py-24" id="story">
+      <section className="border-t border-neutral-200/70 px-6 py-10 lg:px-10 lg:py-16" id="story">
         <div className="mx-auto max-w-[1280px]">
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
             <motion.div
@@ -335,7 +332,7 @@ export default function AboutView({
           PRINCIPLES — what we will not compromise on
          ═════════════════════════════════════════════════════════ */}
       {principlesList.length > 0 && (
-        <section className="bg-neutral-950 px-6 py-16 text-white lg:px-10 lg:py-24">
+        <section className="bg-neutral-950 px-6 py-10 text-white lg:px-10 lg:py-16">
           <div className="mx-auto max-w-[1280px]">
             <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
               <div className="lg:sticky lg:top-32 lg:self-start">
@@ -390,7 +387,7 @@ export default function AboutView({
           TIMELINE — only renders when milestones exist in admin
          ═════════════════════════════════════════════════════════ */}
       {milestonesList.length > 0 && (
-        <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
+        <section className="bg-neutral-50/70 px-6 py-10 lg:px-10 lg:py-16">
           <div className="mx-auto max-w-[1280px]">
             <motion.header
               initial={{ opacity: 0, y: 18 }}
@@ -449,7 +446,7 @@ export default function AboutView({
       {/* ═════════════════════════════════════════════════════════
           STUDIO HQ
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto grid max-w-[1280px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
@@ -520,7 +517,7 @@ export default function AboutView({
       {/* ═════════════════════════════════════════════════════════
           CTA — cinematic full-bleed close
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative isolate flex min-h-[560px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[620px]">
+      <section className="relative isolate flex min-h-[400px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[460px]">
         <motion.div
           initial={{ scale: 1.08 }}
           whileInView={{ scale: 1 }}

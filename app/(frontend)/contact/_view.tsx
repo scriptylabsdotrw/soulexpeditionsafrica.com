@@ -6,9 +6,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import DatePicker from '@/components/DatePicker';
 import type { Destination, SiteContent } from '@/lib/types';
 
-/* Fallback hero backdrop. */
-const CONTACT_HERO =
-  'https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=2400&q=85';
+/* Hero backdrop. */
+const CONTACT_HERO = '/images/uploads/contactushero.jpg';
 
 export default function ContactView({
   destinations,
@@ -23,14 +22,7 @@ export default function ContactView({
     { k: 'Phone', v: siteContent.studioPhone || '+250 783 140 000' },
   ] as { k: string; v: string }[];
 
-  /* Rotating travel backdrops — drawn from destination imagery, de-duplicated. */
-  const slides = useMemo(() => {
-    const imgs = destinations
-      .flatMap((d) => [d.hero, d.image])
-      .filter((src): src is string => Boolean(src));
-    const unique = Array.from(new Set(imgs));
-    return unique.length ? unique.slice(0, 6) : [CONTACT_HERO];
-  }, [destinations]);
+  const slides = useMemo(() => [CONTACT_HERO], []);
 
   const [slide, setSlide] = useState(0);
   useEffect(() => {
@@ -46,7 +38,7 @@ export default function ContactView({
 
   return (
     <main className="bg-white">
-      <section className="relative isolate flex min-h-[calc(100svh-9rem)] items-center overflow-hidden text-white">
+      <section className="relative isolate flex min-h-[calc(100svh-16rem)] items-center overflow-hidden text-white">
         {/* Rotating background */}
         <div className="absolute inset-0 -z-10">
           <AnimatePresence>

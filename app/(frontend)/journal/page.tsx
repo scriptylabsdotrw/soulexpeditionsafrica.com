@@ -32,7 +32,7 @@ export default function JournalPage() {
   return (
     <main className="bg-white">
       {/* ═════════════ HERO ═════════════ */}
-      <section className="relative isolate flex min-h-[68svh] flex-col justify-end overflow-hidden text-white">
+      <section className="relative isolate flex min-h-[52svh] flex-col justify-end overflow-hidden text-white">
         <div className="absolute inset-0 -z-10">
           <Image
             src={JOURNAL_HERO}
@@ -191,7 +191,7 @@ export default function JournalPage() {
       </section>
 
       {/* ═════════════ ARTICLES GRID ═════════════ */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1280px]">
           <AnimatePresence mode="wait">
             {rest.length > 0 ? (
@@ -271,7 +271,7 @@ export default function JournalPage() {
       </section>
 
       {/* ═════════════ NEWSLETTER CTA — cinematic full-bleed ═════════════ */}
-      <section className="relative isolate flex min-h-[560px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[600px]">
+      <section className="relative isolate flex min-h-[400px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[460px]">
         <motion.div
           initial={{ scale: 1.08 }}
           whileInView={{ scale: 1 }}

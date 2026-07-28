@@ -57,7 +57,7 @@ export default async function ToursCollectionPage(props: any) {
           <div className="hero-overlay" />
         </div>
 
-        <div className="mx-auto flex min-h-[78svh] max-w-[1280px] flex-col justify-end px-6 pb-20 pt-36 text-white lg:px-10">
+        <div className="mx-auto flex min-h-[58svh] max-w-[1280px] flex-col justify-end px-6 pb-14 pt-28 text-white lg:px-10">
           <Link
             href="/"
             className="self-start text-[0.7rem] uppercase tracking-[0.32em] text-white/70 transition hover:text-white"
@@ -87,7 +87,7 @@ export default async function ToursCollectionPage(props: any) {
       </section>
 
       {/* ─────────── BRIEF ─────────── */}
-      <section className="px-6 py-24 lg:px-10 lg:py-32">
+      <section className="px-6 py-14 lg:px-10 lg:py-20">
         <div className="mx-auto grid max-w-[1280px] gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-24">
           <div className="space-y-10">
             <div className="flex items-start gap-5">
@@ -131,7 +131,7 @@ export default async function ToursCollectionPage(props: any) {
       </section>
 
       {/* ─────────── TOURS GRID ─────────── */}
-      <section className="bg-neutral-50/70 px-6 py-24 lg:px-10 lg:py-32">
+      <section className="bg-neutral-50/70 px-6 py-14 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-[1280px] space-y-12">
           <header className="flex flex-col items-start justify-between gap-5 border-b border-neutral-300 pb-7 lg:flex-row lg:items-end">
             <div className="space-y-4">
@@ -216,7 +216,7 @@ export default async function ToursCollectionPage(props: any) {
 
       {/* ─────────── SIBLING COLLECTIONS ─────────── */}
       {siblings.length > 0 && (
-        <section className="px-6 py-24 lg:px-10 lg:py-32">
+        <section className="px-6 py-14 lg:px-10 lg:py-20">
           <div className="mx-auto max-w-[1280px] space-y-10">
             <header className="flex items-end justify-between gap-6 border-b border-neutral-200 pb-7">
               <div className="space-y-3">
@@ -268,7 +268,7 @@ export default async function ToursCollectionPage(props: any) {
 
       {/* ─────────── CTA ─────────── */}
       <section className="px-6 pb-24 lg:px-10">
-        <div className="relative isolate mx-auto max-w-[1280px] overflow-hidden rounded-sm bg-neutral-950 px-10 py-20 text-white shadow-deep sm:px-16">
+        <div className="relative isolate mx-auto max-w-[1280px] overflow-hidden rounded-sm bg-neutral-950 px-10 py-14 text-white shadow-deep sm:px-16">
           <div className="glow-orb -left-32 top-1/2 -translate-y-1/2 opacity-40" aria-hidden />
           <div className="glow-orb -right-32 top-0 opacity-25" aria-hidden />
 

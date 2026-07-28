@@ -103,7 +103,6 @@ const groups = [
       { label: 'Tanzania', href: '/destinations/tanzania' },
       { label: 'Kenya', href: '/destinations/kenya' },
       { label: 'Uganda', href: '/destinations/uganda' },
-      { label: 'Botswana', href: '/destinations/botswana' },
       { label: 'Zanzibar', href: '/destinations/zanzibar' },
     ],
   },

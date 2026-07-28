@@ -26,66 +26,18 @@ export default async function DestinationDetail(props: any) {
   return (
     <main className="bg-white">
       {/* ─────────── COMPACT SPLIT HERO ───────────
-          Left: the essentials (title, short intro, highlights, CTA).
-          Right: scannable sidebar of available tours.
+          Left: scannable sidebar of available tours.
+          Right: the essentials (title, short intro, highlights, CTA).
           Tuned to sit largely above the fold on desktop. */}
-      <section className="relative isolate flex min-h-[calc(100svh-7rem)] items-center overflow-hidden">
+      <section className="relative isolate flex min-h-[calc(100svh-14rem)] items-center overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <Image src={d.hero} alt={d.name} fill priority sizes="100vw" className="object-cover" />
           <div className="hero-overlay" />
         </div>
 
-        <div className="mx-auto grid w-full max-w-[1280px] gap-10 px-6 pb-14 pt-28 lg:grid-cols-[1fr_minmax(340px,400px)] lg:items-center lg:gap-14 lg:px-10 lg:pb-16 lg:pt-32">
-          {/* ── Left: essentials ── */}
-          <div className="text-white">
-            <Link
-              href="/destinations"
-              className="inline-flex items-center gap-2 text-[0.66rem] uppercase tracking-[0.32em] text-white/70 transition hover:text-white"
-            >
-              ← All destinations
-            </Link>
-
-            <p className="mt-7 inline-flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.4em] text-white/85">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#F58220]" />
-              {d.region}
-            </p>
-
-            <h1 className="mt-5 text-balance text-[clamp(2.6rem,6.5vw,5.4rem)] font-light leading-[0.95] tracking-[-0.04em]">
-              {d.name}
-            </h1>
-
-            <p className="mt-5 max-w-xl text-balance text-lg leading-8 text-white/85">
-              {d.tagline}
-            </p>
-
-            {/* Key highlights — kept to three for a clean hero */}
-            <ul className="mt-7 flex flex-wrap gap-2.5">
-              {d.highlights.slice(0, 3).map((h) => (
-                <li
-                  key={h}
-                  className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-[0.72rem] leading-snug text-white/85 backdrop-blur"
-                >
-                  {h}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-3 rounded-full bg-[#F58220] px-7 py-3.5 text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-white shadow-glow transition hover:bg-[#ff9d2e]"
-              >
-                Plan your journey
-                <span className="transition group-hover:translate-x-1">→</span>
-              </Link>
-              <span className="text-[0.64rem] uppercase tracking-[0.32em] text-white/65">
-                Best time · {d.bestTime}
-              </span>
-            </div>
-          </div>
-
+        <div className="mx-auto grid w-full max-w-[1280px] gap-10 px-6 pb-14 pt-28 lg:grid-cols-[minmax(340px,400px)_1fr] lg:items-center lg:gap-14 lg:px-10 lg:pb-16 lg:pt-32">
           {/* ── Right: tours sidebar ── */}
-          <aside className="rounded-2xl border border-white/15 bg-white/95 p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl lg:p-7">
+          <aside className="order-2 rounded-2xl border border-white/15 bg-white/95 p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl lg:order-1 lg:p-7">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-4">
               <p className="text-[0.62rem] font-semibold uppercase tracking-[0.32em] text-neutral-950">
                 {d.name} Tours
@@ -132,6 +84,54 @@ export default async function DestinationDetail(props: any) {
               <span aria-hidden="true">→</span>
             </Link>
           </aside>
+
+          {/* ── Left: essentials ── */}
+          <div className="order-1 text-white lg:order-2">
+            <Link
+              href="/destinations"
+              className="inline-flex items-center gap-2 text-[0.66rem] uppercase tracking-[0.32em] text-white/70 transition hover:text-white"
+            >
+              ← All destinations
+            </Link>
+
+            <p className="mt-7 inline-flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.4em] text-white/85">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#F58220]" />
+              {d.region}
+            </p>
+
+            <h1 className="mt-5 text-balance text-[clamp(2.6rem,6.5vw,5.4rem)] font-light leading-[0.95] tracking-[-0.04em]">
+              {d.name}
+            </h1>
+
+            <p className="mt-5 max-w-xl text-balance text-lg leading-8 text-white/85">
+              {d.tagline}
+            </p>
+
+            {/* Key highlights — kept to three for a clean hero */}
+            <ul className="mt-7 flex flex-wrap gap-2.5">
+              {d.highlights.slice(0, 3).map((h) => (
+                <li
+                  key={h}
+                  className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-[0.72rem] leading-snug text-white/85 backdrop-blur"
+                >
+                  {h}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 rounded-full bg-[#F58220] px-7 py-3.5 text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-white shadow-glow transition hover:bg-[#ff9d2e]"
+              >
+                Plan your journey
+                <span className="transition group-hover:translate-x-1">→</span>
+              </Link>
+              <span className="text-[0.64rem] uppercase tracking-[0.32em] text-white/65">
+                Best time · {d.bestTime}
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -147,7 +147,7 @@ export default async function DestinationDetail(props: any) {
       </div>
 
       {/* ─────────── ABOUT + HIGHLIGHTS (supporting, below fold) ─────────── */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
           <div className="space-y-8">
             <header className="space-y-4">
@@ -227,7 +227,7 @@ export default async function DestinationDetail(props: any) {
       </section>
 
       {/* ─────────── RELATED COUNTRIES ─────────── */}
-      <section className="border-t border-neutral-200/80 px-6 py-16 lg:px-10 lg:py-24">
+      <section className="border-t border-neutral-200/80 px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1280px] space-y-10">
           <div className="flex items-end justify-between">
             <h2 className="text-balance text-[clamp(1.8rem,4vw,2.8rem)] font-light tracking-tight text-neutral-950">

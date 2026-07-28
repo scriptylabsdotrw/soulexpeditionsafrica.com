@@ -440,7 +440,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           HERO
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative isolate flex h-[100svh] min-h-[760px] w-full flex-col overflow-hidden">
+      <section className="relative isolate flex h-[82svh] min-h-[600px] w-full flex-col overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <Image
             src={siteContent.visitRwandaHeroImage || IMG.heroSilverback}
@@ -535,7 +535,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           MANIFESTO
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1180px]">
           <motion.div
             initial="hidden"
@@ -569,7 +569,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           SIX PILLARS — alternating editorial blocks
          ═════════════════════════════════════════════════════════ */}
-      <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
+      <section className="bg-neutral-50/70 px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1280px] space-y-16 lg:space-y-20">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
@@ -652,7 +652,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           PLACES BY CATEGORY — Cultural, History, Memory, Nature, Modern
          ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1280px]">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
@@ -768,7 +768,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           COUNTRY AT A GLANCE
          ═════════════════════════════════════════════════════════ */}
-      <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
+      <section className="bg-neutral-50/70 px-6 py-10 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1280px]">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
@@ -807,7 +807,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           WHEN TO VISIT
          ═════════════════════════════════════════════════════════ */}
-      <section className="bg-neutral-950 px-6 py-20 text-white lg:px-10 lg:py-28">
+      <section className="bg-neutral-950 px-6 py-12 text-white lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1280px]">
           <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
             <div className="lg:sticky lg:top-32 lg:self-start">
@@ -869,7 +869,7 @@ export default function VisitRwandaView({
           CURATED RWANDA TOURS
          ═════════════════════════════════════════════════════════ */}
       {tours.length > 0 && (
-        <section className="px-6 py-16 lg:px-10 lg:py-24">
+        <section className="px-6 py-10 lg:px-10 lg:py-16">
           <div className="mx-auto max-w-[1280px]">
             <motion.header
               initial={{ opacity: 0, y: 18 }}
@@ -958,7 +958,7 @@ export default function VisitRwandaView({
           GUEST QUOTE — only renders when a featured testimonial exists
          ═════════════════════════════════════════════════════════ */}
       {featuredTestimonial && (
-        <section className="bg-neutral-50/70 px-6 py-16 lg:px-10 lg:py-24">
+        <section className="bg-neutral-50/70 px-6 py-10 lg:px-10 lg:py-16">
           <div className="mx-auto max-w-[1280px]">
             <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
               <motion.div
@@ -1014,7 +1014,7 @@ export default function VisitRwandaView({
       {/* ═════════════════════════════════════════════════════════
           FINAL CTA
          ═════════════════════════════════════════════════════════ */}
-      <section className="relative isolate flex min-h-[580px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[640px]">
+      <section className="relative isolate flex min-h-[400px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[460px]">
         <motion.div
           initial={{ scale: 1.08 }}
           whileInView={{ scale: 1 }}

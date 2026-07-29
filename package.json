@@ -7,11 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "payload": "tsx node_modules/payload/dist/bin/index.js",
-    "generate:types": "tsx node_modules/payload/dist/bin/index.js generate:types",
-    "generate:importmap": "tsx node_modules/payload/dist/bin/index.js generate:importmap",
-    "seed": "tsx -r dotenv/config scripts/seed.ts dotenv_config_path=.env.local",
-    "seed:extended": "tsx -r dotenv/config scripts/seed-extended.ts dotenv_config_path=.env.local"
+    "payload": "tsx -r ./scripts/fix-payload-loadenv.cjs node_modules/payload/dist/bin/index.js",
+    "generate:types": "tsx -r ./scripts/fix-payload-loadenv.cjs node_modules/payload/dist/bin/index.js generate:types",
+    "generate:importmap": "tsx -r ./scripts/fix-payload-loadenv.cjs node_modules/payload/dist/bin/index.js generate:importmap",
+    "seed": "tsx -r ./scripts/fix-payload-loadenv.cjs -r dotenv/config scripts/seed.ts dotenv_config_path=.env.local",
+    "seed:extended": "tsx -r ./scripts/fix-payload-loadenv.cjs -r dotenv/config scripts/seed-extended.ts dotenv_config_path=.env.local"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

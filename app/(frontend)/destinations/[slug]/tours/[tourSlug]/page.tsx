@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTour, tourTiers } from '@/lib/data';
 import TourBookingForm from '@/components/TourBookingForm';
+import TourItineraryGlance from '@/components/TourItineraryGlance';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,7 +26,6 @@ export default async function TourDetail(props: any) {
   const { destination: dest, tour } = result;
 
   const otherTours = dest.tours.filter((t) => t.slug !== tour.slug).slice(0, 3);
-  const previewDays = tour.itinerary.slice(0, 3);
   const detailsHref = `/destinations/${dest.slug}/tours/${tour.slug}/details`;
 
   return (
@@ -73,39 +73,8 @@ export default async function TourDetail(props: any) {
               <span className="rounded-full border border-white/20 bg-white/5 px-4 py-2 backdrop-blur">{tour.group}</span>
             </div>
 
-            {/* Itinerary at a glance — connected Day 1–3 timeline */}
-            {previewDays.length > 0 && (
-              <div className="mt-9">
-                <p className="text-[0.58rem] font-semibold uppercase tracking-[0.4em] text-white/55">
-                  Itinerary at a glance
-                </p>
-                <ol className="mt-4 grid gap-y-4 sm:grid-cols-3 sm:gap-x-3">
-                  {previewDays.map((day, i) => (
-                    <li key={`${day.day}-${i}`} className="relative sm:pt-7">
-                      {/* connector line (desktop) */}
-                      <span
-                        aria-hidden="true"
-                        className={`absolute left-3 top-[0.4rem] hidden h-px bg-white/20 sm:block ${
-                          i < previewDays.length - 1 ? 'w-full' : 'w-0'
-                        }`}
-                      />
-                      <span
-                        aria-hidden="true"
-                        className="absolute left-0 top-0 hidden h-6 w-6 items-center justify-center rounded-full bg-[#F58220] text-[0.6rem] font-bold text-white sm:flex"
-                      >
-                        {i + 1}
-                      </span>
-                      <p className="text-[0.58rem] font-semibold uppercase tracking-[0.3em] text-[#F58220]">
-                        <span className="sm:hidden">{i + 1} · </span>{day.day || `Day ${i + 1}`}
-                      </p>
-                      <p className="mt-1.5 text-[0.95rem] font-light leading-snug text-white/90 line-clamp-2">
-                        {day.title}
-                      </p>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
+            {/* Itinerary at a glance — every day listed, click to expand */}
+            <TourItineraryGlance days={tour.itinerary} />
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <Link

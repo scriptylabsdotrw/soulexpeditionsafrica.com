@@ -6,19 +6,20 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
 
-import { Users } from './src/collections/Users';
-import { Media } from './src/collections/Media';
-import { Destinations } from './src/collections/Destinations';
-import { Tours } from './src/collections/Tours';
-import { TourThemes } from './src/collections/TourThemes';
-import { JournalPosts } from './src/collections/JournalPosts';
-import { Enquiries } from './src/collections/Enquiries';
-import { Testimonials } from './src/collections/Testimonials';
-import { Partners } from './src/collections/Partners';
-import { PressFeatures } from './src/collections/PressFeatures';
-import { Principles } from './src/collections/Principles';
-import { Milestones } from './src/collections/Milestones';
-import { SiteContent } from './src/globals/SiteContent';
+import { Users } from './src/internal/collections/Users';
+import { Media } from './src/internal/collections/Media';
+import { Destinations } from './src/internal/collections/Destinations';
+import { Tours } from './src/internal/collections/Tours';
+import { TourThemes } from './src/internal/collections/TourThemes';
+import { JournalPosts } from './src/internal/collections/JournalPosts';
+import { Enquiries } from './src/internal/collections/Enquiries';
+import { Testimonials } from './src/internal/collections/Testimonials';
+import { Partners } from './src/internal/collections/Partners';
+import { PressFeatures } from './src/internal/collections/PressFeatures';
+import { Principles } from './src/internal/collections/Principles';
+import { Milestones } from './src/internal/collections/Milestones';
+import { SiteContent } from './src/internal/globals/SiteContent';
+import { VisitRwanda } from './src/internal/globals/VisitRwanda';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -35,11 +36,11 @@ export default buildConfig({
     },
     components: {
       graphics: {
-        Logo: '/src/components/AdminLogo#default',
-        Icon: '/src/components/AdminIcon#default',
+        Logo: '/src/internal/components/AdminLogo#default',
+        Icon: '/src/internal/components/AdminIcon#default',
       },
-      beforeDashboard: ['/src/components/Dashboard#default'],
-      beforeNavLinks: ['/src/components/DashboardNavLink#default'],
+      beforeDashboard: ['/src/internal/components/Dashboard#default'],
+      beforeNavLinks: ['/src/internal/components/DashboardNavLink#default'],
     },
   },
   collections: [
@@ -56,11 +57,11 @@ export default buildConfig({
     Milestones,
     Enquiries,
   ],
-  globals: [SiteContent],
+  globals: [SiteContent, VisitRwanda],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
-    outputFile: path.resolve(dirname, 'src/payload-types.ts'),
+    outputFile: path.resolve(dirname, 'src/shared/payload-types.ts'),
   },
   /* On Vercel (any POSTGRES_URL set by the Neon Marketplace integration),
      use the serverless-friendly adapter that auto-pushes schema on cold start.

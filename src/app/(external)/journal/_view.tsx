@@ -1,0 +1,429 @@
+'use client';
+
+import { useMemo, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  formatDate,
+  journalCategories,
+  type JournalPost,
+  type SiteContent,
+} from '@/shared/lib/types';
+
+/* ─────────── motion ─────────── */
+const reveal = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } },
+};
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
+
+const ALL = 'All';
+
+export default function JournalView({
+  posts,
+  siteContent,
+}: {
+  posts: JournalPost[];
+  siteContent: SiteContent;
+}) {
+  const [filter, setFilter] = useState<string>(ALL);
+
+  const categories = useMemo(() => journalCategories(posts), [posts]);
+  const featured = useMemo(() => posts.find((p) => p.featured) ?? posts[0], [posts]);
+  const visible = useMemo(
+    () => posts.filter((p) => (filter === ALL ? true : p.category === filter)),
+    [posts, filter],
+  );
+  const rest = useMemo(
+    () => visible.filter((p) => p.slug !== featured?.slug),
+    [visible, featured],
+  );
+
+  const hero = siteContent.journalHeroImage;
+
+  /* Nothing published yet — render a calm empty state rather than a broken page. */
+  if (!featured) {
+    return (
+      <main className="bg-white">
+        <section className="mx-auto max-w-[1280px] px-6 py-32 text-center lg:px-10">
+          <p className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]">
+            {siteContent.journalEyebrow || 'Journal'}
+          </p>
+          <h1 className="mt-6 text-balance text-[clamp(2.4rem,6vw,4.4rem)] font-light leading-[1.02] tracking-[-0.035em] text-neutral-950">
+            No stories published yet.
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-neutral-600">
+            Field writing is on its way. In the meantime, tell us what you have in mind and we
+            will design something for you.
+          </p>
+          <Link
+            href="/contact"
+            className="mt-10 inline-flex items-center gap-3 rounded-full bg-[#F58220] px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-[#ff9d2e]"
+          >
+            Enquire now <span aria-hidden="true">→</span>
+          </Link>
+        </section>
+      </main>
+    );
+  }
+
+  const stats = [
+    { value: String(posts.length).padStart(2, '0'), label: 'Long reads' },
+    { value: String(categories.length).padStart(2, '0'), label: 'Categories' },
+    siteContent.journalContributors
+      ? { value: siteContent.journalContributors, label: 'Field contributors' }
+      : null,
+    siteContent.journalCadence
+      ? { value: siteContent.journalCadence, label: 'Cadence' }
+      : null,
+  ].filter(Boolean) as { value: string; label: string }[];
+
+  return (
+    <main className="bg-white">
+      {/* ═════════════ HERO ═════════════ */}
+      <section className="relative isolate flex min-h-[52svh] flex-col justify-end overflow-hidden text-white">
+        <div className="absolute inset-0 -z-10 bg-neutral-950">
+          {hero && (
+            <Image
+              src={hero}
+              alt={siteContent.journalHeadingBold || 'Journal'}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          )}
+          <div className="hero-overlay" />
+        </div>
+
+        <div className="mx-auto w-full max-w-[1280px] px-6 pb-14 pt-36 lg:px-10 lg:pb-16">
+          <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-4xl">
+            {siteContent.journalEyebrow && (
+              <motion.div
+                variants={reveal}
+                className="mb-8 flex items-center gap-3 text-[0.66rem] font-medium uppercase tracking-[0.4em] text-white/85"
+              >
+                <span className="relative inline-flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F58220] opacity-50" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#F58220]" />
+                </span>
+                <span>{siteContent.journalEyebrow}</span>
+              </motion.div>
+            )}
+            <motion.h1
+              variants={reveal}
+              className="text-balance text-[clamp(3rem,8vw,7rem)] leading-[0.94] tracking-[-0.045em]"
+            >
+              {siteContent.journalHeadingLight && (
+                <span className="block font-light">{siteContent.journalHeadingLight}</span>
+              )}
+              {siteContent.journalHeadingBold && (
+                <span className="block font-bold text-[#F58220]">
+                  {siteContent.journalHeadingBold}
+                </span>
+              )}
+            </motion.h1>
+            {siteContent.journalIntro && (
+              <motion.p
+                variants={reveal}
+                className="mt-9 max-w-xl text-balance text-lg leading-9 text-white/85"
+              >
+                {siteContent.journalIntro}
+              </motion.p>
+            )}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═════════════ STAT RIBBON ═════════════ */}
+      {stats.length > 0 && (
+        <section className="border-b border-neutral-200/80 bg-white">
+          <div className="mx-auto max-w-[1280px] px-6 lg:px-10">
+            <motion.ul
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10% 0px' }}
+              transition={{ duration: 0.9, ease: 'easeOut' }}
+              className="hairline-grid grid grid-cols-2 sm:grid-cols-4"
+            >
+              {stats.map((s) => (
+                <li key={s.label} className="group px-6 py-9 text-center sm:py-10">
+                  <p className="text-4xl font-light tracking-tight text-neutral-950 transition duration-300 group-hover:text-[#F58220] sm:text-5xl">
+                    {s.value}
+                  </p>
+                  <p className="mt-3 text-[0.62rem] font-medium uppercase tracking-[0.35em] text-neutral-500">
+                    {s.label}
+                  </p>
+                </li>
+              ))}
+            </motion.ul>
+          </div>
+        </section>
+      )}
+
+      {/* ═════════════ FEATURED ARTICLE ═════════════ */}
+      {filter === ALL && (
+        <section className="px-6 py-12 lg:px-10 lg:py-16">
+          <div className="mx-auto max-w-[1280px]">
+            <motion.div
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10% 0px' }}
+              transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Link
+                href={`/journal/${featured.slug}`}
+                className="group block overflow-hidden rounded-sm border border-neutral-200/80"
+              >
+                <article className="grid lg:grid-cols-[1.35fr_1fr]">
+                  <div className="relative aspect-[16/11] overflow-hidden bg-neutral-100 lg:aspect-auto lg:min-h-[560px]">
+                    {featured.image && (
+                      <Image
+                        src={featured.image}
+                        alt={featured.title}
+                        fill
+                        priority
+                        sizes="(min-width: 1024px) 760px, 100vw"
+                        className="object-cover transition duration-[1800ms] ease-out group-hover:scale-105"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    {featured.category && (
+                      <div className="absolute left-6 top-6 inline-flex items-center gap-3 rounded-full bg-black/35 px-4 py-2 text-[0.62rem] font-medium uppercase tracking-[0.32em] text-white backdrop-blur">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#F58220]" />
+                        Featured · {featured.category}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col justify-between bg-neutral-950 p-10 text-white lg:p-14">
+                    <div className="space-y-7">
+                      {(featured.tag || featured.readTime) && (
+                        <p className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]">
+                          {featured.tag ? `${featured.tag} · ` : ''}
+                          {featured.readTime}
+                        </p>
+                      )}
+                      <h3 className="text-balance text-[clamp(2.4rem,4.4vw,3.8rem)] font-bold leading-[0.98] tracking-[-0.03em]">
+                        {featured.title}
+                      </h3>
+                      <p className="max-w-md text-lg leading-9 text-white/75">
+                        {featured.excerpt}
+                      </p>
+                    </div>
+
+                    <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-7">
+                      <div>
+                        {featured.author && (
+                          <p className="text-base font-medium text-white">{featured.author}</p>
+                        )}
+                        <p className="mt-1 text-[0.62rem] uppercase tracking-[0.32em] text-white/55">
+                          {[featured.authorRole, formatDate(featured.publishedAt)]
+                            .filter(Boolean)
+                            .join(' · ')}
+                        </p>
+                      </div>
+                      <span className="inline-flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-[#F58220] transition group-hover:text-white">
+                        Read story
+                        <span className="transition group-hover:translate-x-1">→</span>
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ═════════════ FILTER BAR ═════════════ */}
+      {categories.length > 1 && (
+        <section className="border-y border-neutral-200/80 bg-neutral-50/60">
+          <div className="mx-auto max-w-[1280px] overflow-x-auto px-6 py-6 lg:px-10">
+            <div className="flex min-w-max items-center gap-3">
+              <span className="mr-3 hidden text-[0.6rem] font-medium uppercase tracking-[0.4em] text-neutral-500 sm:inline">
+                Filter
+              </span>
+              {[ALL, ...categories].map((c) => {
+                const active = c === filter;
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => setFilter(c)}
+                    className={`rounded-full px-5 py-2.5 text-[0.62rem] font-semibold uppercase tracking-[0.32em] transition ${
+                      active
+                        ? 'bg-neutral-950 text-white'
+                        : 'border border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400'
+                    }`}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ═════════════ ARTICLES GRID ═════════════ */}
+      <section className="px-6 py-10 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[1280px]">
+          <AnimatePresence mode="wait">
+            {rest.length > 0 ? (
+              <motion.ul
+                key={filter}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+                className="grid gap-px overflow-hidden rounded-sm bg-neutral-200/80 md:grid-cols-2 lg:grid-cols-3"
+              >
+                {rest.map((a) => (
+                  <li key={a.slug} className="bg-white">
+                    <Link href={`/journal/${a.slug}`} className="group flex h-full flex-col">
+                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
+                        {a.image && (
+                          <Image
+                            src={a.image}
+                            alt={a.title}
+                            fill
+                            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                            className="object-cover transition duration-[1500ms] ease-out group-hover:scale-105"
+                          />
+                        )}
+                        <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5">
+                          {a.category && (
+                            <span className="rounded-full bg-black/35 px-3 py-1.5 text-[0.6rem] font-medium uppercase tracking-[0.32em] text-white backdrop-blur">
+                              {a.category}
+                            </span>
+                          )}
+                          {a.readTime && (
+                            <span className="rounded-full bg-black/35 px-3 py-1.5 text-[0.6rem] font-medium uppercase tracking-[0.32em] text-white backdrop-blur">
+                              {a.readTime}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex flex-1 flex-col p-8">
+                        {a.tag && (
+                          <p className="text-[0.6rem] font-medium uppercase tracking-[0.4em] text-[#F58220]">
+                            {a.tag}
+                          </p>
+                        )}
+                        <h3 className="mt-5 text-balance text-2xl font-light leading-[1.18] tracking-tight text-neutral-950 transition group-hover:text-[#F58220]">
+                          <span className="font-bold">{a.title}</span>
+                        </h3>
+                        <p className="mt-4 text-sm leading-7 text-neutral-600">{a.excerpt}</p>
+
+                        <div className="mt-auto flex items-center justify-between border-t border-neutral-200 pt-6">
+                          <div>
+                            {a.author && (
+                              <p className="text-sm font-medium text-neutral-900">{a.author}</p>
+                            )}
+                            <p className="mt-1 text-[0.6rem] uppercase tracking-[0.32em] text-neutral-500">
+                              {formatDate(a.publishedAt)}
+                            </p>
+                          </div>
+                          <span className="inline-flex items-center gap-2 text-[0.6rem] font-semibold uppercase tracking-[0.32em] text-neutral-700 transition group-hover:text-[#F58220]">
+                            Read
+                            <span className="transition group-hover:translate-x-1">→</span>
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </motion.ul>
+            ) : (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="rounded-sm border border-dashed border-neutral-300 bg-neutral-50/60 px-8 py-16 text-center"
+              >
+                <p className="text-sm leading-7 text-neutral-500">
+                  Nothing in <span className="font-semibold text-neutral-900">{filter}</span> yet —
+                  try another category.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* ═════════════ NEWSLETTER CTA ═════════════ */}
+      {(siteContent.journalCtaHeadingLight || siteContent.journalCtaHeadingBold) && (
+        <section className="relative isolate flex min-h-[400px] items-end overflow-hidden bg-neutral-950 text-white lg:min-h-[460px]">
+          <motion.div
+            initial={{ scale: 1.08 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 -z-10"
+          >
+            {hero && (
+              <Image
+                src={hero}
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/75 to-neutral-950/40" />
+          </motion.div>
+
+          <div className="relative w-full px-6 pb-16 pt-28 lg:px-10 lg:pb-20 lg:pt-36">
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-15% 0px' }}
+              transition={{ duration: 0.9, ease: 'easeOut' }}
+              className="relative mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1.2fr_0.9fr] lg:items-end"
+            >
+              <div className="space-y-7">
+                {siteContent.journalCtaEyebrow && (
+                  <p className="text-[0.62rem] font-medium uppercase tracking-[0.4em] text-[#F58220]">
+                    {siteContent.journalCtaEyebrow}
+                  </p>
+                )}
+                <h2 className="text-balance text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.02] tracking-[-0.035em]">
+                  {siteContent.journalCtaHeadingLight && (
+                    <>
+                      <span className="font-light">{siteContent.journalCtaHeadingLight}</span>
+                      <br />
+                    </>
+                  )}
+                  {siteContent.journalCtaHeadingBold && (
+                    <span className="font-bold text-[#F58220]">
+                      {siteContent.journalCtaHeadingBold}
+                    </span>
+                  )}
+                </h2>
+                {siteContent.journalCtaBody && (
+                  <p className="max-w-xl text-base leading-8 text-white/65">
+                    {siteContent.journalCtaBody}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-4 lg:items-end">
+                <Link
+                  href="/contact"
+                  className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#F58220] px-9 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-white hover:text-neutral-950"
+                >
+                  Enquire now
+                  <span className="transition group-hover:translate-x-1">→</span>
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
+    </main>
+  );
+}

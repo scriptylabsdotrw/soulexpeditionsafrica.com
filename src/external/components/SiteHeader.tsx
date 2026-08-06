@@ -278,8 +278,15 @@ export default function SiteHeader({
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" onClick={() => setMegaOpen(false)} className="mt-auto inline-flex items-center gap-2 text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-slate-500 transition hover:text-[#F58220]">
-                  Talk to a consultant <span aria-hidden="true">→</span>
+                <Link
+                  href="/contact"
+                  onClick={() => setMegaOpen(false)}
+                  className="mt-auto inline-flex items-center gap-2 text-[0.62rem] font-semibold uppercase tracking-[0.32em] text-slate-500 transition group-hover:text-[#F58220]"
+                >
+                  Talk to a consultant
+                  <span aria-hidden="true" className="transition group-hover:translate-x-1">
+                    →
+                  </span>
                 </Link>
               </article>
             ))}

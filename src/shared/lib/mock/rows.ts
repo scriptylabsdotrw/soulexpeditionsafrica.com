@@ -88,7 +88,7 @@ export const journalRows = articles.map((a, i) => ({
   tag: a.tag ?? '',
   author: a.author?.name ?? '',
   authorRole: a.author?.role ?? '',
-  publishedAt: a.date ?? '',
+  publishedAt: a.publishedAt ?? '',
   readTime: a.readTime ?? '',
   imageUrl: a.image ?? '',
   featured: i === 0,

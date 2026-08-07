@@ -586,6 +586,7 @@ export default function HomeView({ siteContent, partners }: HomeViewProps) {
                 className="grid items-start gap-6 lg:grid-cols-2 lg:gap-10"
               >
                 <motion.div
+                  key="media"
                   variants={reveal}
                   className={`group relative aspect-[16/10] overflow-hidden rounded-3xl bg-neutral-100 ${
                     i % 2 === 1 ? 'lg:order-last' : ''
@@ -595,7 +596,7 @@ export default function HomeView({ siteContent, partners }: HomeViewProps) {
                 </motion.div>
 
                 {/* Copy starts on the same line as the top of the image */}
-                <motion.div variants={reveal} className="lg:pt-1">
+                <motion.div key="copy" variants={reveal} className="lg:pt-1">
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.36em] text-[#F58220]">
                     {String(i + 1).padStart(2, '0')}
                   </p>
@@ -646,6 +647,7 @@ export default function HomeView({ siteContent, partners }: HomeViewProps) {
               >
                 {/* Country image card */}
                 <motion.div
+                  key="media"
                   variants={reveal}
                   className={`relative aspect-[4/3] overflow-hidden rounded-3xl bg-neutral-900 lg:aspect-auto lg:min-h-[380px] ${
                     i % 2 === 1 ? 'lg:order-last' : ''
@@ -671,7 +673,7 @@ export default function HomeView({ siteContent, partners }: HomeViewProps) {
                 </motion.div>
 
                 {/* Highlights */}
-                <motion.div variants={reveal} className="flex flex-col justify-center">
+                <motion.div key="copy" variants={reveal} className="flex flex-col justify-center">
                   <p className="text-base leading-8 text-white/70">{c.body}</p>
 
                   <ul className="mt-9 space-y-7">

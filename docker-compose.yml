@@ -1,7 +1,25 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_USE_MOCK_DATA: ${NEXT_PUBLIC_USE_MOCK_DATA:-true}
+    container_name: soulexp-web
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      USE_MOCK_DATA: ${USE_MOCK_DATA:-true}
+      NEXT_PUBLIC_USE_MOCK_DATA: ${NEXT_PUBLIC_USE_MOCK_DATA:-true}
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "3000:3000"
+
   postgres:
     image: postgres:17-alpine
     container_name: soulexp-postgres
+    profiles: ["backend"]
     restart: unless-stopped
     environment:
       POSTGRES_USER: soulexp

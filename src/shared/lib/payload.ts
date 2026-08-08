@@ -1,7 +1,5 @@
 /* Cached Payload local-API client. Use from server components only. */
 
-import { getPayload } from 'payload';
-import config from '@payload-config';
 import { createMockPayloadClient } from './mock/client';
 
 type PayloadDataClient = {
@@ -19,17 +17,17 @@ type PayloadDataClient = {
   findGlobal: (args: { slug: string }) => Promise<Record<string, any>>;
 };
 
-/* Mock mode serves the site from static fixtures instead of the database.
-   Enabled explicitly via USE_MOCK_DATA, or automatically when Payload cannot
-   possibly boot (no secret / no connection string) — which is what turns a
-   missing env var into a rendering site rather than a 500 on every route. */
+/* The public site is mock-first while the backend is being built. Payload and
+   Postgres are enabled only when USE_MOCK_DATA is explicitly false (or 0). */
 export const isMockMode = () =>
-  process.env.USE_MOCK_DATA === 'true' ||
-  process.env.USE_MOCK_DATA === '1' ||
-  !process.env.PAYLOAD_SECRET ||
-  !process.env.DATABASE_URI;
+  process.env.USE_MOCK_DATA !== 'false' && process.env.USE_MOCK_DATA !== '0';
 
 export const getPayloadClient = async (): Promise<PayloadDataClient> => {
   if (isMockMode()) return createMockPayloadClient();
+
+  const [{ getPayload }, { default: config }] = await Promise.all([
+    import('payload'),
+    import('@payload-config'),
+  ]);
   return getPayload({ config }) as unknown as PayloadDataClient;
 };

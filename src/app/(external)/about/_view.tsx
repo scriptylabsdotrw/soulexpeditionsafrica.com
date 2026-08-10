@@ -38,7 +38,6 @@ export default function AboutView({
   ].filter(Boolean) as { value: string; label: string }[];
 
   const manifesto = siteContent.aboutManifesto;
-  const studioBlurb = siteContent.studioBlurb;
   const principlesList = principles;
   const milestonesList = milestones;
 
@@ -304,79 +303,6 @@ export default function AboutView({
           </div>
         </section>
       )}
-
-      {/* ═════════════════════════════════════════════════════════
-          STUDIO HQ
-         ═════════════════════════════════════════════════════════ */}
-      <section className="px-6 py-10 lg:px-10 lg:py-16">
-        <div className="mx-auto grid max-w-[1280px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-10% 0px' }}
-            transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative isolate aspect-[4/5] overflow-hidden rounded-sm"
-          >
-            {siteContent.aboutStudioImage && (
-              <Image
-                src={siteContent.aboutStudioImage}
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 580px, 100vw"
-                className="object-cover transition duration-[1500ms] ease-out group-hover:scale-[1.04]"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-            <div className="absolute left-6 top-6 inline-flex items-center gap-3 rounded-full bg-black/35 px-4 py-2 text-[0.62rem] uppercase tracking-[0.32em] text-white backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#F58220]" /> Kigali · Rwanda
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10% 0px' }}
-            transition={{ duration: 0.95, ease: 'easeOut' }}
-            className="space-y-9"
-          >
-            <p className="text-[0.62rem] uppercase tracking-[0.4em] text-[#F58220]">
-              Index · 05 — Studio
-            </p>
-            <h2 className="text-balance text-[clamp(2.2rem,4.4vw,3.4rem)] font-light leading-tight tracking-[-0.025em] text-neutral-950">
-              Headquartered in <span className="font-bold">Kigali.</span>
-            </h2>
-            <p className="text-lg leading-9 text-neutral-700">{studioBlurb}</p>
-
-            <ul className="grid gap-x-8 gap-y-5 pt-4 sm:grid-cols-2">
-              {[
-                { k: 'Studio', v: siteContent.studioAddress },
-                { k: 'Email', v: siteContent.studioEmail },
-                { k: 'Phone', v: siteContent.studioPhone },
-                { k: 'Hours', v: siteContent.studioHours },
-              ].filter((row) => Boolean(row.v)).map((row) => (
-                <li key={row.k} className="border-t border-neutral-200 pt-4">
-                  <p className="text-[0.62rem] uppercase tracking-[0.32em] text-neutral-500">
-                    {row.k}
-                  </p>
-                  <p className="mt-2 text-base text-neutral-900">{row.v}</p>
-                </li>
-              ))}
-            </ul>
-
-            {siteContent.studioMapsUrl && (
-              <a
-                href={siteContent.studioMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex w-fit items-center gap-3 rounded-full border border-neutral-200 bg-white px-7 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-neutral-950 transition hover:border-[#F58220] hover:text-[#F58220]"
-              >
-                Get directions
-                <span className="transition group-hover:translate-x-1">→</span>
-              </a>
-            )}
-          </motion.div>
-        </div>
-      </section>
 
     </main>
   );
